@@ -35,30 +35,46 @@
     nav a{color:#334155; text-decoration:none; margin:0 12px; font-weight:600;}
     nav a:hover{color:var(--accent)}
 
-    /* ===== HERO ===== */
-    .hero{
-      position:relative; height:85vh; display:flex; align-items:center; justify-content:center; text-align:center; color:#1e293b; overflow:hidden;
+    /* ===== HERO GRID ===== */
+    .hero {
+      position: relative;
+      height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #1e293b;
+      overflow: hidden;
     }
 
-    /* 横スクロールアニメーション */
-    .hero-slides {
-      position:absolute; inset:0; z-index:0; display:flex; width:calc(100% * 12); /* 画像×2セット */
-      animation: scroll 80s linear infinite;
-    }
-    .hero-slides img {
-      width:100vw; height:100%; object-fit:cover; flex-shrink:0;
-      filter:brightness(0.85);
-    }
-    @keyframes scroll {
-      from { transform:translateX(0); }
-      to { transform:translateX(-50%); } /* 半分まで動かす（2セットあるので） */
+    /* 背景画像グリッド */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      z-index: 0; /* ← 背景として固定 */
     }
 
-    .hero::before{
-      content:''; position:absolute; inset:0; background:rgba(224,231,255,0.5); z-index:1;
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
+
+    /* ここで白くする */
+    .hero-bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.7); /* ← 白の透明 45% */
+      pointer-events: none;
+    }
+
+    /* 文字を前面へ */
     .hero-content{
-      position:relative; z-index:2; max-width:800px; padding:0 16px;
+      position:relative; z-index:10; max-width:800px; padding:0 16px;
     }
     .hero h1{font-size:42px; margin-bottom:12px; color:#111827;}
     .hero p{color:#334155; margin-bottom:20px; font-size:18px;}
@@ -103,24 +119,30 @@
 
   <!-- ===== HERO SECTION ===== -->
   <section class="hero">
-    <div class="hero-slides">
-      <!-- 画像を2セット並べると無限ループっぽく見える -->
-      <img src="images/game02_icon.png" alt="">
+    <div class="hero-bg">
       <img src="images/game13-1.png" alt="">
-      <img src="images/game05_icon.png" alt="">
+      <img src="images/game01_icon.png" alt="">
+      <img src="images/game02_icon.png" alt="">
       <img src="images/game03_icon.png" alt="">
       <img src="images/game04_icon.png" alt="">
+      <img src="images/game05_icon.png" alt="">
       <img src="images/game06_icon.png" alt="">
-      <img src="images/game10_icon.png" alt="">
+      <img src="images/game07_icon.png" alt="">
+      <img src="images/game08_icon.png" alt="">
+      <img src="images/game09_icon.png" alt="">
 
-      <img src="images/game02_icon.png" alt="">
-      <img src="images/game13-1.png" alt="">
-      <img src="images/game05_icon.png" alt="">
-      <img src="images/game03_icon.png" alt="">
-      <img src="images/game04_icon.png" alt="">
-      <img src="images/game06_icon.png" alt="">
       <img src="images/game10_icon.png" alt="">
+      <img src="images/game11_icon.png" alt="">
+      <img src="images/game12_icon.png" alt="">
+      <img src="images/game13_icon.png" alt="">
+      <img src="images/other01_icon.webp" alt="">
+      <img src="images/other02_icon.png" alt="">
+      <img src="images/other03_icon.png" alt="">
+      <img src="images/other04_icon.png" alt="">
+      <img src="images/other05_icon.png" alt="">
+      <img src="images/other07_icon.webp" alt="">
     </div>
+
     <div class="hero-content">
       <h1>“つくることで仕組みを理解する”</h1>
       <p>ネットワーク、ゲーム、Web。多分野で動くものを設計し、形にしてきました。</p>
