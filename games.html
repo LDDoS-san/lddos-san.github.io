@@ -130,34 +130,30 @@
       }
     }
     
-    /* 詳細ブロック本体 */
-    .detail-block{
-      width:100%;
-      border-top:1px solid rgba(0,0,0,0.06);
+    .detail-row{
+      background:#fff;
+      border-radius:0 0 14px 14px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.05);
+      margin-top:-8px; /* game-card に密着させる */
     }
     
-    /* たたまれている時の一行 */
     .detail-toggle{
       padding:8px 16px;
       font-size:13px;
-      color:#334155;
       cursor:pointer;
-      user-select:none;
+      color:#334155;
     }
     
-    /* 展開エリア */
     .detail-content{
       max-height:0;
       overflow:hidden;
       transition:max-height 0.35s ease;
     }
     
-    /* 開いた状態 */
     .detail-content.open{
       max-height:600px;
     }
     
-    /* 画像配置（横2枚） */
     .detail-grid{
       display:grid;
       grid-template-columns:repeat(2, 1fr);
@@ -167,8 +163,8 @@
     
     .detail-grid img{
       width:100%;
-      object-fit:cover;
       border-radius:8px;
+      object-fit:cover;
     }
 
     footer{
@@ -200,18 +196,39 @@
     <h2>Unity作品</h2>
     <div class="game-grid">
 
-      <div class="game-card">
-        <img src="images/game01_icon.png" alt="ホラーゲーム">
-        <div class="game-info">
-          <span class="category">ホラー / アドベンチャー / 謎解き</span>
-          <h3>ホラーゲーム</h3>
-          <p><strong>表現や演出にこだわった</strong>ホラーゲーム。</p>
+      <div class="game-item">
+        <div class="game-card"> 
+          <img src="images/game02_icon.png" alt="図書館警察シミュレーター"> 
+          <div class="game-info"> 
+            <span class="category">シミュレーション / アドベンチャー</span> 
+            <h3>図書館警察シミュレーター</h3> 
+            <p>1~2時間遊べるシミュレーションゲーム。<strong>一時間以上飽きずに</strong>遊んでもらえるゲームを目指し、ボリュームと飽きさせないシステムに注力。</p> 
+          </div> 
         </div>
-      
-        <!-- ▼ ここから追加 -->
-        <div class="detail-block">
+        <div class="detail-row">
           <div class="detail-toggle">▼ 詳細画像を見る</div>
-      
+          <div class="detail-content">
+            <div class="detail-grid">
+              <img src="images/game01_icon.png">
+              <img src="images/game02_icon.png">
+              <img src="images/game03_icon.png">
+              <img src="images/game04_icon.png">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game13_icon.png" alt="5εκlЯ0">
+          <div class="game-info">
+            <span class="category">アクション / ソードアクション</span>
+            <h3>5εκlЯ0</h3>
+            <p>某SEK*ROのようなゲーム。<strong>操作性や演出、ゲームバランス</strong>にこだわった。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
           <div class="detail-content">
             <div class="detail-grid">
               <img src="images/game01_icon.png">
@@ -223,84 +240,179 @@
         </div>
       </div>
 
-      <div class="game-card">
-        <img src="images/game13_icon.png" alt="5εκlЯ0">
-        <div class="game-info">
-          <span class="category">アクション / ソードアクション</span>
-          <h3>5εκlЯ0</h3>
-          <p>某SEK*ROのようなゲーム。<strong>操作性や演出、ゲームバランス</strong>にこだわった。</p>
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game01_icon.png" alt="ホラーゲーム">
+          <div class="game-info">
+            <span class="category">ホラー / アドベンチャー / 謎解き</span>
+            <h3>ホラーゲーム</h3>
+            <p><strong>表現や演出にこだわった</strong>ホラーゲーム。敵から隠れながら謎解きをして、閉ざされた建物からの脱出を目指す。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid">
+              <img src="images/game01_icon.png">
+              <img src="images/game02_icon.png">
+              <img src="images/game03_icon.png">
+              <img src="images/game04_icon.png">
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="game-card">
-        <img src="images/game01_icon.png" alt="ホラーゲーム">
-        <div class="game-info">
-          <span class="category">ホラー / アドベンチャー / 謎解き</span>
-          <h3>ホラーゲーム</h3>
-          <p><strong>表現や演出にこだわった</strong>ホラーゲーム。敵から隠れながら謎解きをして、閉ざされた建物からの脱出を目指す。</p>
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game03_icon.png" alt="機械学習ボードゲーム">
+          <div class="game-info">
+            <span class="category">ストラテジー / 機械学習</span>
+            <h3>機械学習ボードゲーム</h3>
+            <p>プレイングをAIに学習させて、自分だけの「最強のCPU」を作るストラテジーゲーム。<strong>機械学習を１から実装</strong>した。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid">
+              <img src="images/game01_icon.png">
+              <img src="images/game02_icon.png">
+              <img src="images/game03_icon.png">
+              <img src="images/game04_icon.png">
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="game-card">
-        <img src="images/game03_icon.png" alt="機械学習ボードゲーム">
-        <div class="game-info">
-          <span class="category">ストラテジー / 機械学習</span>
-          <h3>機械学習ボードゲーム</h3>
-          <p>プレイングをAIに学習させて、自分だけの「最強のCPU」を作るストラテジーゲーム。<strong>機械学習を１から実装</strong>した。</p>
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game10_icon.png" alt="盆栽シミュレーター">
+          <div class="game-info">
+            <span class="category">シミュレーション / 育成</span>
+            <h3>盆栽シミュレーター</h3>
+            <p>盆栽を育てるシミュレーションゲーム。枝や葉の<strong>メッシュを自由に生成・変形</strong>させるのが難しそうだと思って制作した。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid">
+              <img src="images/game01_icon.png">
+              <img src="images/game02_icon.png">
+              <img src="images/game03_icon.png">
+              <img src="images/game04_icon.png">
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="game-card">
-        <img src="images/game10_icon.png" alt="盆栽シミュレーター">
-        <div class="game-info">
-          <span class="category">シミュレーション / 育成</span>
-          <h3>盆栽シミュレーター</h3>
-          <p>盆栽を育てるシミュレーションゲーム。枝や葉の<strong>メッシュを自由に生成・変形</strong>させるのが難しそうだと思って制作した。</p>
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game07_icon.png" alt="Winter Wars">
+          <div class="game-info">
+            <span class="category">アクション / タイピング</span>
+            <h3>Winter Wars</h3>
+            <p>サマーウォーズのように、忙しなくキーボードをたたくようなアクションゲーム。様々な技術を使って<strong>多彩な攻撃演出</strong>を実装した。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid">
+              <img src="images/game01_icon.png">
+              <img src="images/game02_icon.png">
+              <img src="images/game03_icon.png">
+              <img src="images/game04_icon.png">
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="game-card">
-        <img src="images/game07_icon.png" alt="Winter Wars">
-        <div class="game-info">
-          <span class="category">アクション / タイピング</span>
-          <h3>Winter Wars</h3>
-          <p>サマーウォーズのように、忙しなくキーボードをたたくようなアクションゲーム。様々な技術を使って<strong>多彩な攻撃演出</strong>を実装した。</p>
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game06_icon.png" alt="サムライ対決">
+          <div class="game-info">
+            <span class="category">アクション / ソードアクション</span>
+            <h3>サムライ対決</h3>
+            <p>回避やカウンターを駆使して戦うアクションゲーム。<strong>アニメーションの編集など</strong>細かいテクニックを学んだ。諸事情で一週間で作った。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid">
+              <img src="images/game01_icon.png">
+              <img src="images/game02_icon.png">
+              <img src="images/game03_icon.png">
+              <img src="images/game04_icon.png">
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="game-card">
-        <img src="images/game06_icon.png" alt="サムライ対決">
-        <div class="game-info">
-          <span class="category">アクション / ソードアクション</span>
-          <h3>サムライ対決</h3>
-          <p>回避やカウンターを駆使して戦うアクションゲーム。<strong>アニメーションの編集など</strong>細かいテクニックを学んだ。諸事情で一週間で作った。</p>
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game04_icon.png" alt="RPG">
+          <div class="game-info">
+            <span class="category">アクション / RPG</span>
+            <h3>RPG</h3>
+            <p>一般的なアクションゲーム。<strong>初めてUnityで制作した</strong>ゲームでもある。Youtubeの動画を真似しながら進めた。</p>
+          </div>
         </div>
-      </div>
-
-      <div class="game-card">
-        <img src="images/game04_icon.png" alt="RPG">
-        <div class="game-info">
-          <span class="category">アクション / RPG</span>
-          <h3>RPG</h3>
-          <p>一般的なアクションゲーム。<strong>初めてUnityで制作した</strong>ゲームでもある。Youtubeの動画を真似しながら進めた。</p>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid">
+              <img src="images/game01_icon.png">
+              <img src="images/game02_icon.png">
+              <img src="images/game03_icon.png">
+              <img src="images/game04_icon.png">
+            </div>
+          </div>
         </div>
       </div>
     
-      <div class="game-card">
-        <img src="images/game11_icon.png" alt="ブロックパズル">
-        <div class="game-info">
-          <span class="category">再現作品 / ミニゲーム</span>
-          <h3>ブロックパズル</h3>
-          <p>盆栽シミュレーターに実装したミニゲーム。落ちモノではない、一般的なブロックパズル。</p>
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game11_icon.png" alt="ブロックパズル">
+          <div class="game-info">
+            <span class="category">再現作品 / ミニゲーム</span>
+            <h3>ブロックパズル</h3>
+            <p>盆栽シミュレーターに実装したミニゲーム。落ちモノではない、一般的なブロックパズル。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid">
+              <img src="images/game01_icon.png">
+              <img src="images/game02_icon.png">
+              <img src="images/game03_icon.png">
+              <img src="images/game04_icon.png">
+            </div>
+          </div>
         </div>
       </div>
     
-      <div class="game-card">
-        <img src="images/game12_icon.png" alt="スロット">
-        <div class="game-info">
-          <span class="category">再現作品 / ミニゲーム</span>
-          <h3>スロット</h3>
-          <p>盆栽シミュレーターに実装したミニゲーム。一般的な古典スロットに近い。</p>
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game12_icon.png" alt="スロット">
+          <div class="game-info">
+            <span class="category">再現作品 / ミニゲーム</span>
+            <h3>スロット</h3>
+            <p>盆栽シミュレーターに実装したミニゲーム。一般的な古典スロットに近い。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid">
+              <img src="images/game01_icon.png">
+              <img src="images/game02_icon.png">
+              <img src="images/game03_icon.png">
+              <img src="images/game04_icon.png">
+            </div>
+          </div>
         </div>
       </div>
     
@@ -353,8 +465,7 @@
   
     document.querySelectorAll('.detail-toggle').forEach(toggle=>{
       toggle.addEventListener('click', ()=>{
-        const content = toggle.nextElementSibling;
-        content.classList.toggle('open');
+        toggle.nextElementSibling.classList.toggle('open');
       });
     });
   </script>
