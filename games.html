@@ -129,26 +129,22 @@
         padding:12px;
       }
     }
-
-    .game-item{
-      display:block;
+    
+    .expand-toggle,
+    .expand-content{
+      grid-column: 1 / -1;   /* ← これが本質 */
     }
     
+    /* クリック行 */
     .expand-toggle{
-      display:block;
-      width:100%;
       cursor:pointer;
       padding:12px 16px;
       font-size:14px;
       color:#334155;
     }
     
-    .expand-toggle:hover{
-      color:var(--accent);
-    }
-    
+    /* 展開部分 */
     .expand-content{
-      width:100%;
       max-height:0;
       overflow:hidden;
       transition:max-height 0.4s ease;
@@ -158,6 +154,7 @@
       max-height:1000px;
     }
     
+    /* 中の画像レイアウト */
     .expand-grid{
       display:grid;
       grid-template-columns:repeat(2, 1fr);
@@ -167,8 +164,8 @@
     
     .expand-grid img{
       width:100%;
-      border-radius:8px;
       object-fit:cover;
+      border-radius:8px;
     }
 
     footer{
@@ -352,10 +349,6 @@
       toggle.addEventListener('click', ()=>{
         const content = toggle.nextElementSibling;
         content.classList.toggle('open');
-    
-        toggle.textContent = content.classList.contains('open')
-          ? '▲ 閉じる'
-          : '▼ 詳細画像を見る';
       });
     });
   </script>
