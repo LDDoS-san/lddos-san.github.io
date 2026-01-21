@@ -130,6 +130,38 @@
       }
     }
 
+    /* ===== MODAL ===== */
+    .modal{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.7);
+      z-index:1000;
+      align-items:center;
+      justify-content:center;
+    }
+    
+    .modal-content{
+      position:relative;
+      max-width:80%;
+      max-height:80%;
+    }
+    
+    .modal-content img{
+      width:100%;
+      height:auto;
+      border-radius:12px;
+    }
+    
+    .close{
+      position:absolute;
+      top:-40px;
+      right:0;
+      font-size:36px;
+      color:white;
+      cursor:pointer;
+    }
+
     footer{
       padding:24px; 
       text-align:center; 
@@ -159,7 +191,8 @@
     <h2>Unity作品</h2>
     <div class="game-grid">
 
-      <div class="game-card">
+      <div class="game-card" 
+        data-images="images/game01_icon.png,images/game02_icon.png,images/game03_icon.png">
         <img src="images/game02_icon.png" alt="図書館警察シミュレーター">
         <div class="game-info">
           <span class="category">シミュレーション / アドベンチャー</span>
@@ -282,6 +315,14 @@
         </div>
       </div>
 
+    </div>
+
+    <!-- ===== IMAGE MODAL ===== -->
+    <div id="imageModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <img id="modalImage" src="" alt="">
+      </div>
     </div>
   </main>
 
