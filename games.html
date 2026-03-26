@@ -98,6 +98,46 @@
       cursor:pointer;
     }
 
+    .game-card.has-details{
+      outline:2px solid rgba(99, 102, 241, 0.25);
+      outline-offset:-2px;
+      position:relative;
+    }
+
+    .game-card.has-details:hover{
+      outline-color:rgba(99, 102, 241, 0.55);
+    }
+
+    .game-card.has-details:focus-visible{
+      outline:3px solid rgba(99, 102, 241, 0.8);
+      outline-offset:2px;
+    }
+
+    .game-card.has-details::after{
+      content:"クリックで詳細画像";
+      position:absolute;
+      top:10px;
+      left:10px;
+      background:rgba(99, 102, 241, 0.92);
+      color:#fff;
+      font-size:12px;
+      font-weight:800;
+      padding:6px 10px;
+      border-radius:999px;
+      letter-spacing:0.2px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.18);
+      pointer-events:none;
+    }
+
+    @media(max-width:500px){
+      .game-card.has-details::after{
+        top:8px;
+        left:8px;
+        font-size:11px;
+        padding:5px 9px;
+      }
+    }
+
     .game-info{
       padding:16px 20px; 
       display:flex; 
@@ -342,6 +382,23 @@
 
       <div class="game-item">
         <div class="game-card">
+          <img src="images/game07_icon.png" alt="Winter Wars">
+          <div class="game-info">
+            <span class="category">アクション / タイピング</span>
+            <h3>Winter Wars</h3>
+            <p>サマーウォーズのように、忙しなくキーボードをたたくようなアクションゲーム。様々な技術を使って<strong>多彩な攻撃演出</strong>を実装した。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-item">
+        <div class="game-card">
           <img src="images/game14_icon.png" alt="スナイパー">
           <div class="game-info">
             <span class="category">アクション / シューティング</span>
@@ -376,23 +433,6 @@
 
       <div class="game-item">
         <div class="game-card">
-          <img src="images/game03_icon.png" alt="機械学習ボードゲーム">
-          <div class="game-info">
-            <span class="category">ストラテジー / 機械学習</span>
-            <h3>機械学習ボードゲーム</h3>
-            <p>プレイングをAIに学習させて、自分だけの「最強のCPU」を作るストラテジーゲーム。<strong>機械学習を１から実装</strong>した。</p>
-          </div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-toggle">▼ 詳細画像を見る</div>
-          <div class="detail-content">
-            <div class="detail-grid"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="game-item">
-        <div class="game-card">
           <img src="images/game10_icon.png" alt="盆栽シミュレーター">
           <div class="game-info">
             <span class="category">シミュレーション / 育成</span>
@@ -410,11 +450,11 @@
 
       <div class="game-item">
         <div class="game-card">
-          <img src="images/game07_icon.png" alt="Winter Wars">
+          <img src="images/game03_icon.png" alt="機械学習ボードゲーム">
           <div class="game-info">
-            <span class="category">アクション / タイピング</span>
-            <h3>Winter Wars</h3>
-            <p>サマーウォーズのように、忙しなくキーボードをたたくようなアクションゲーム。様々な技術を使って<strong>多彩な攻撃演出</strong>を実装した。</p>
+            <span class="category">ストラテジー / 機械学習</span>
+            <h3>機械学習ボードゲーム</h3>
+            <p>プレイングをAIに学習させて、自分だけの「最強のCPU」を作るストラテジーゲーム。<strong>機械学習を１から実装</strong>した。</p>
           </div>
         </div>
         <div class="detail-row">
@@ -732,12 +772,23 @@
             continue;
         }
 
+        // クリック可能だと見た目で分かるように
+        gameCard.setAttribute('role', 'button');
+        gameCard.setAttribute('tabindex', '0');
+        gameCard.setAttribute('aria-label', '詳細画像を表示');
+
         // クリック前にプリロードしてラグ軽減
         detailImages.forEach(preloadImage);
 
         // カードクリックで全画面表示
         gameCard.classList.add('has-details');
         gameCard.addEventListener('click', () => openOverlay(detailImages));
+        gameCard.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openOverlay(detailImages);
+          }
+        });
         }
     }
 

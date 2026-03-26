@@ -91,6 +91,46 @@
       cursor:pointer;
     }
 
+    .game-card.has-details{
+      outline:2px solid rgba(99, 102, 241, 0.25);
+      outline-offset:-2px;
+      position:relative;
+    }
+
+    .game-card.has-details:hover{
+      outline-color:rgba(99, 102, 241, 0.55);
+    }
+
+    .game-card.has-details:focus-visible{
+      outline:3px solid rgba(99, 102, 241, 0.8);
+      outline-offset:2px;
+    }
+
+    .game-card.has-details::after{
+      content:"クリックで詳細画像";
+      position:absolute;
+      top:10px;
+      left:10px;
+      background:rgba(99, 102, 241, 0.92);
+      color:#fff;
+      font-size:12px;
+      font-weight:800;
+      padding:6px 10px;
+      border-radius:999px;
+      letter-spacing:0.2px;
+      box-shadow:0 6px 14px rgba(0,0,0,0.18);
+      pointer-events:none;
+    }
+
+    @media(max-width:500px){
+      .game-card.has-details::after{
+        top:8px;
+        left:8px;
+        font-size:11px;
+        padding:5px 9px;
+      }
+    }
+
     .game-card img{
       width:150px; 
       height:150px; 
@@ -344,12 +384,36 @@
     <h2>3Dモデル</h2>
     <div class="game-grid">
     
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/other11_icon.png" alt="学校">
+          <div class="game-info">
+            <span class="category">Blender / モデリング</span>
+            <h3>学校</h3>
+            <p>母校をもとにした学校の3Dモデル。<strong>マテリアルの質感や各モデルの粒度</strong>をそろえるよう意識した。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+      </div>
+
       <div class="game-card">
         <img src="images/other03_icon.png" alt="エバー">
         <div class="game-info">
           <span class="category">Blender / モデリング / テクスチャリング</span>
           <h3>エバー</h3>
           <p>人型のロボット。体のバランスに気を配り、<strong>全体のシルエット</strong>が美しく見えるよう制作した。</p>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <img src="images/other05_icon.png" alt="人間">
+        <div class="game-info">
+          <span class="category">Blender / モデリング / テクスチャリング</span>
+          <h3>人間</h3>
+          <p>Blenderに慣れてきた段階で挑戦した人間のモデル。<strong>顔や髪、服</strong>などの要素に苦戦しながらもなんとか完成させた。</p>
         </div>
       </div>
 
@@ -362,15 +426,6 @@
         </div>
       </div>
       
-      <div class="game-card">
-        <img src="images/other05_icon.png" alt="人間">
-        <div class="game-info">
-          <span class="category">Blender / モデリング / テクスチャリング</span>
-          <h3>人間</h3>
-          <p>Blenderに慣れてきた段階で挑戦した人間のモデル。<strong>顔や髪、服</strong>などの要素に苦戦しながらもなんとか完成させた。</p>
-        </div>
-      </div>
-
       <div class="game-card">
         <img src="images/other02_icon.png" alt="能面メカ">
         <div class="game-info">
@@ -395,21 +450,6 @@
           <span class="category">Blender  / モデリング / リギング</span>
           <h3>テレビくん</h3>
           <p>顔がテレビの人型ロボット。動かせるように<strong>リグを設定</strong>して動かせるようにし、動きが映えるよう剣を持たせた。</p>
-        </div>
-      </div>
-
-      <div class="game-item">
-        <div class="game-card">
-          <img src="images/other11_icon.png" alt="学校">
-          <div class="game-info">
-            <span class="category">Blender / モデリング</span>
-            <h3>学校</h3>
-            <p>母校をもとにした学校の3Dモデル。<strong>マテリアルの質感や各モデルの粒度</strong>をそろえるよう意識した。</p>
-          </div>
-        </div>
-        <div class="detail-row">
-          <div class="detail-toggle"></div>
-          <div class="detail-content"><div class="detail-grid"></div></div>
         </div>
       </div>
 
@@ -603,9 +643,19 @@
           continue;
         }
 
+        gameCard.setAttribute('role', 'button');
+        gameCard.setAttribute('tabindex', '0');
+        gameCard.setAttribute('aria-label', '詳細画像を表示');
+
         detailImages.forEach(preloadImage);
         gameCard.classList.add('has-details');
         gameCard.addEventListener('click', () => openOverlay(detailImages));
+        gameCard.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openOverlay(detailImages);
+          }
+        });
       }
     }
 
