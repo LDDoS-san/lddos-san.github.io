@@ -87,6 +87,10 @@
       box-shadow:0 8px 24px rgba(0,0,0,0.15);
     }
 
+    .game-card.has-details{
+      cursor:pointer;
+    }
+
     .game-card img{
       width:150px; 
       height:150px; 
@@ -130,6 +134,102 @@
       }
     }
 
+    .detail-row{
+      display:none !important;
+    }
+
+    .image-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(15, 23, 42, 0.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:max(1vh, 8px) max(1vw, 8px);
+      box-sizing:border-box;
+      z-index:1000;
+    }
+
+    .image-overlay.open{
+      display:flex;
+    }
+
+    .image-overlay-panel{
+      box-sizing:border-box;
+      max-width:min(90vw, calc(100vw - 16px));
+      max-height:min(90vh, calc(100vh - 16px));
+      width:auto;
+      height:auto;
+      overflow:hidden;
+      background:#fff;
+      border-radius:16px;
+      box-shadow:0 24px 60px rgba(0,0,0,0.35);
+      padding:clamp(10px, 1.5vmin, 16px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .image-overlay-panel.overlay-compact{
+      overflow:auto;
+      align-items:flex-start;
+      justify-content:center;
+    }
+
+    .image-overlay-scaler-outer{
+      flex-shrink:0;
+      overflow:hidden;
+      line-height:0;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-scaler-outer{
+      width:100% !important;
+      max-width:100%;
+      height:auto !important;
+      overflow:visible;
+      line-height:normal;
+    }
+
+    .image-overlay-scaler-inner{
+      line-height:normal;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-scaler-inner{
+      transform:none !important;
+      width:auto !important;
+      height:auto !important;
+    }
+
+    .image-overlay-grid{
+      display:grid;
+      grid-template-columns:repeat(2, max-content);
+      gap:12px;
+      align-content:start;
+      justify-content:center;
+    }
+
+    .image-overlay-item{
+      width:640px;
+      aspect-ratio:16 / 9;
+      overflow:hidden;
+      border-radius:12px;
+    }
+
+    .image-overlay-grid img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-grid{
+      grid-template-columns:max-content;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-item{
+      width:min(88vw, calc(100vw - 48px));
+    }
+
     footer{
       padding:24px; 
       text-align:center; 
@@ -155,10 +255,74 @@
   <main>
     <h1>その他作品一覧</h1>
 
-    <!-- ================= UNITY ================= -->
+    <h2>実績</h2>
+    <div class="game-grid">
+
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/other09_icon.png" alt="AtCoder 緑">
+          <div class="game-info">
+            <span class="category">競技プログラミング</span>
+            <h3>AtCoder 緑色帯</h3>
+            <p>AtCoder でレーティング緑色帯を達成。<strong>アルゴリズム力や実装力</strong>を鍛えた。計算量を意識してプログラムをかけるようになった。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+      </div>
+
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/other10_icon.png" alt="Paiza Sランク">
+          <div class="game-info">
+            <span class="category">プログラミングスキル</span>
+            <h3>Paiza Sランク</h3>
+            <p>Paiza のスキルチェックでSランクを取得。<strong>基本的なプログラミングスキル</strong>を改めて確認した。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+      </div>
+
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/other13_icon.png" alt="第88回情報処理学会全国大会学生奨励賞">
+          <div class="game-info">
+            <span class="category">学会 / 表彰</span>
+            <h3>学生奨励賞</h3>
+            <p>第88回情報処理学会全国大会で<strong>学生奨励賞</strong>を受賞。わかりやすく人に伝える意識を身に着けることができた。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+      </div>
+
+    </div>
+
     <h2>アプリ</h2>
     <div class="game-grid">
-    
+
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/other08_icon.png" alt="熱中症予測アプリ">
+          <div class="game-info">
+            <span class="category">アプリ / 予測</span>
+            <h3>熱中症予測アプリ</h3>
+            <p>気象や活動状況などから<strong>熱中症リスクを予測</strong>するアプリ。実用に向けた情報設計と表示に取り組んだ。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+      </div>
+
     </div>
     
     <!-- ================= ECLIPSE ================= -->
@@ -234,6 +398,36 @@
         </div>
       </div>
 
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/other11_icon.png" alt="学校">
+          <div class="game-info">
+            <span class="category">Blender / モデリング</span>
+            <h3>学校</h3>
+            <p>母校をもとにした学校の3Dモデル。<strong>マテリアルの質感や各モデルの粒度</strong>をそろえるよう意識した。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+      </div>
+
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/other12_icon.png" alt="ホラーゲーム用武士">
+          <div class="game-info">
+            <span class="category">Blender / モデリング / リギング</span>
+            <h3>ホラーゲーム用武士</h3>
+            <p>ホラーゲーム用に制作した武士のキャラクターモデル。<strong>Unityでも問題なく動く</strong>よう、いろいろと調整した。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+      </div>
+
     </div>
   </main>
 
@@ -245,8 +439,176 @@
     <p>© <span id="year"></span> 小野 敬生</p>
   </footer>
 
+  <div id="imageOverlay" class="image-overlay" aria-hidden="true">
+    <div class="image-overlay-panel" role="dialog" aria-modal="true">
+      <div id="imageOverlayScalerOuter" class="image-overlay-scaler-outer">
+        <div id="imageOverlayScalerInner" class="image-overlay-scaler-inner">
+          <div id="imageOverlayGrid" class="image-overlay-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    function checkImageExists(src) {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = src;
+      });
+    }
+
+    async function setupDetailImages() {
+      const gameItems = document.querySelectorAll('.game-item');
+      const overlay = document.getElementById('imageOverlay');
+      const overlayPanel = overlay.querySelector('.image-overlay-panel');
+      const overlayGrid = document.getElementById('imageOverlayGrid');
+      const scalerOuter = document.getElementById('imageOverlayScalerOuter');
+      const scalerInner = document.getElementById('imageOverlayScalerInner');
+
+      const VIEWPORT_FIT = 0.9;
+
+      function isCompactOverlay() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        if (w <= 700) return true;
+        if (h > w && w < 900) return true;
+        return false;
+      }
+
+      function resetOverlayLayout() {
+        overlayPanel.classList.remove('overlay-compact');
+        scalerOuter.style.cssText = '';
+        scalerInner.style.cssText = '';
+      }
+
+      function fitOverlayToViewport() {
+        if (!overlay.classList.contains('open') || !overlayGrid.children.length) return;
+
+        if (isCompactOverlay()) {
+          overlayPanel.classList.add('overlay-compact');
+          scalerOuter.style.width = '100%';
+          scalerOuter.style.maxWidth = '100%';
+          scalerOuter.style.height = 'auto';
+          scalerOuter.style.overflow = 'visible';
+          scalerInner.style.transform = 'none';
+          scalerInner.style.width = 'auto';
+          scalerInner.style.height = 'auto';
+          return;
+        }
+
+        overlayPanel.classList.remove('overlay-compact');
+      scalerOuter.style.maxWidth = '';
+      scalerOuter.style.height = '';
+      scalerInner.style.transform = '';
+        const cs = getComputedStyle(overlayPanel);
+        const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+        const padY = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+        const availW = window.innerWidth * VIEWPORT_FIT - padX;
+        const availH = window.innerHeight * VIEWPORT_FIT - padY;
+
+        const gridW = overlayGrid.offsetWidth;
+        const gridH = overlayGrid.offsetHeight;
+        if (gridW < 1 || gridH < 1) return;
+
+        const s = Math.min(availW / gridW, availH / gridH);
+
+        scalerInner.style.width = gridW + 'px';
+        scalerInner.style.height = gridH + 'px';
+        scalerInner.style.transform = 'scale(' + s + ')';
+        scalerInner.style.transformOrigin = '0 0';
+        scalerOuter.style.width = (gridW * s) + 'px';
+        scalerOuter.style.height = (gridH * s) + 'px';
+        scalerOuter.style.overflow = 'hidden';
+      }
+
+      function closeOverlay() {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        overlayGrid.innerHTML = '';
+        resetOverlayLayout();
+        document.body.style.overflow = '';
+      }
+
+      function openOverlay(imageSrcList) {
+        resetOverlayLayout();
+        overlayGrid.innerHTML = imageSrcList.map(src => `<div class="image-overlay-item"><img src="${src}" alt=""></div>`).join('');
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        const imgs = [...overlayGrid.querySelectorAll('img')];
+        let pending = imgs.length;
+        if (pending === 0) return;
+
+        const scheduleFit = () => {
+          requestAnimationFrame(() => {
+            requestAnimationFrame(fitOverlayToViewport);
+          });
+        };
+
+        imgs.forEach((img) => {
+          const onDone = () => {
+            if (--pending === 0) scheduleFit();
+          };
+          if (img.complete) onDone();
+          else {
+            img.addEventListener('load', onDone, { once: true });
+            img.addEventListener('error', onDone, { once: true });
+          }
+        });
+      }
+
+      window.addEventListener('resize', () => {
+        if (!overlay.classList.contains('open') || !overlayGrid.children.length) return;
+        fitOverlayToViewport();
+      });
+
+      overlay.addEventListener('click', closeOverlay);
+      overlayPanel.addEventListener('click', (e) => e.stopPropagation());
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
+      });
+
+      for (const item of gameItems) {
+        const mainImg = item.querySelector('.game-card img');
+        const detailRow = item.querySelector('.detail-row');
+        const gameCard = item.querySelector('.game-card');
+
+        if (!mainImg || !detailRow || !gameCard) continue;
+
+        const mainSrc = mainImg.getAttribute('src');
+        const match = mainSrc.match(/^(.*\/)([^\/]+)_icon(\.[^.]+)$/);
+        if (!match) {
+          detailRow.style.display = 'none';
+          continue;
+        }
+
+        const folder = match[1];
+        const baseName = match[2];
+        const ext = match[3];
+        const detailImages = [];
+
+        for (let i = 1; i <= 8; i++) {
+          const detailSrc = `${folder}${baseName}_${i}${ext}`;
+          const exists = await checkImageExists(detailSrc);
+          if (exists) detailImages.push(detailSrc);
+        }
+
+        if (detailImages.length === 0) {
+          detailRow.style.display = 'none';
+          continue;
+        }
+
+        gameCard.classList.add('has-details');
+        gameCard.addEventListener('click', () => openOverlay(detailImages));
+      }
+    }
+
+    setupDetailImages();
   </script>
 </body>
 </html>

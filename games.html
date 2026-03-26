@@ -94,6 +94,10 @@
       flex-shrink:0;
     }
 
+    .game-card.has-details{
+      cursor:pointer;
+    }
+
     .game-info{
       padding:16px 20px; 
       display:flex; 
@@ -131,6 +135,7 @@
     }
     
     .detail-row{
+      display:none !important; /* 詳細ボタンは使わない */
       background:#fff;
       border-radius:0 0 14px 14px;
       box-shadow:0 4px 12px rgba(0,0,0,0.05);
@@ -178,6 +183,98 @@
       height: 100%;
       object-fit: cover; /* 縦横比維持＋削る */
       display: block;
+    }
+
+    .image-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(15, 23, 42, 0.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:max(1vh, 8px) max(1vw, 8px);
+      box-sizing:border-box;
+      z-index:1000;
+    }
+
+    .image-overlay.open{
+      display:flex;
+    }
+
+    .image-overlay-panel{
+      box-sizing:border-box;
+      max-width:min(90vw, calc(100vw - 16px));
+      max-height:min(90vh, calc(100vh - 16px));
+      width:auto;
+      height:auto;
+      overflow:hidden;
+      background:#fff;
+      border-radius:16px;
+      box-shadow:0 24px 60px rgba(0,0,0,0.35);
+      padding:clamp(10px, 1.5vmin, 16px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .image-overlay-panel.overlay-compact{
+      overflow:auto;
+      align-items:flex-start;
+      justify-content:center;
+    }
+
+    .image-overlay-scaler-outer{
+      flex-shrink:0;
+      overflow:hidden;
+      line-height:0;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-scaler-outer{
+      width:100% !important;
+      max-width:100%;
+      height:auto !important;
+      overflow:visible;
+      line-height:normal;
+    }
+
+    .image-overlay-scaler-inner{
+      line-height:normal;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-scaler-inner{
+      transform:none !important;
+      width:auto !important;
+      height:auto !important;
+    }
+
+    .image-overlay-grid{
+      display:grid;
+      grid-template-columns:repeat(2, max-content);
+      gap:12px;
+      align-content:start;
+      justify-content:center;
+    }
+
+    .image-overlay-item{
+      width:640px;
+      aspect-ratio:16 / 9;
+      overflow:hidden;
+      border-radius:12px;
+    }
+
+    .image-overlay-grid img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-grid{
+      grid-template-columns:max-content;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-item{
+      width:min(88vw, calc(100vw - 48px));
     }
 
     footer{
@@ -233,6 +330,23 @@
             <span class="category">アクション / ソードアクション</span>
             <h3>5εκlЯ0</h3>
             <p>某SEK*ROのようなゲーム。<strong>操作性や演出、ゲームバランス</strong>にこだわった。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/game14_icon.png" alt="スナイパー">
+          <div class="game-info">
+            <span class="category">アクション / シューティング</span>
+            <h3>スナイパー</h3>
+            <p>狙撃して敵から逃げるゲーム。<strong>ランダムなマップ</strong>にしながらゲームバランスが崩壊しないよう調整した。レンダリングを軽くするのに苦労した。</p>
           </div>
         </div>
         <div class="detail-row">
@@ -447,6 +561,16 @@
     <p>© <span id="year"></span> 小野 敬生</p>
   </footer>
 
+  <div id="imageOverlay" class="image-overlay" aria-hidden="true">
+    <div class="image-overlay-panel" role="dialog" aria-modal="true">
+      <div id="imageOverlayScalerOuter" class="image-overlay-scaler-outer">
+        <div id="imageOverlayScalerInner" class="image-overlay-scaler-inner">
+          <div id="imageOverlayGrid" class="image-overlay-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -461,15 +585,123 @@
 
     async function setupDetailImages() {
         const gameItems = document.querySelectorAll('.game-item');
+        const overlay = document.getElementById('imageOverlay');
+        const overlayPanel = overlay.querySelector('.image-overlay-panel');
+        const overlayGrid = document.getElementById('imageOverlayGrid');
+        const scalerOuter = document.getElementById('imageOverlayScalerOuter');
+        const scalerInner = document.getElementById('imageOverlayScalerInner');
+
+        const VIEWPORT_FIT = 0.9;
+
+        function isCompactOverlay() {
+          const w = window.innerWidth;
+          const h = window.innerHeight;
+          if (w <= 700) return true;
+          if (h > w && w < 900) return true;
+          return false;
+        }
+
+        function resetOverlayLayout() {
+          overlayPanel.classList.remove('overlay-compact');
+          scalerOuter.style.cssText = '';
+          scalerInner.style.cssText = '';
+        }
+
+        function fitOverlayToViewport() {
+          if (!overlay.classList.contains('open') || !overlayGrid.children.length) return;
+
+          if (isCompactOverlay()) {
+            overlayPanel.classList.add('overlay-compact');
+            scalerOuter.style.width = '100%';
+            scalerOuter.style.maxWidth = '100%';
+            scalerOuter.style.height = 'auto';
+            scalerOuter.style.overflow = 'visible';
+            scalerInner.style.transform = 'none';
+            scalerInner.style.width = 'auto';
+            scalerInner.style.height = 'auto';
+            return;
+          }
+
+          overlayPanel.classList.remove('overlay-compact');
+        scalerOuter.style.maxWidth = '';
+        scalerOuter.style.height = '';
+        scalerInner.style.transform = '';
+          const cs = getComputedStyle(overlayPanel);
+          const padX = (parseFloat(cs.paddingLeft) || 0) + (parseFloat(cs.paddingRight) || 0);
+          const padY = (parseFloat(cs.paddingTop) || 0) + (parseFloat(cs.paddingBottom) || 0);
+          const availW = window.innerWidth * VIEWPORT_FIT - padX;
+          const availH = window.innerHeight * VIEWPORT_FIT - padY;
+
+          const gridW = overlayGrid.offsetWidth;
+          const gridH = overlayGrid.offsetHeight;
+          if (gridW < 1 || gridH < 1) return;
+
+          const s = Math.min(availW / gridW, availH / gridH);
+
+          scalerInner.style.width = gridW + 'px';
+          scalerInner.style.height = gridH + 'px';
+          scalerInner.style.transform = 'scale(' + s + ')';
+          scalerInner.style.transformOrigin = '0 0';
+          scalerOuter.style.width = (gridW * s) + 'px';
+          scalerOuter.style.height = (gridH * s) + 'px';
+          scalerOuter.style.overflow = 'hidden';
+        }
+
+        function closeOverlay() {
+          overlay.classList.remove('open');
+          overlay.setAttribute('aria-hidden', 'true');
+          overlayGrid.innerHTML = '';
+          resetOverlayLayout();
+          document.body.style.overflow = '';
+        }
+
+        function openOverlay(imageSrcList) {
+          resetOverlayLayout();
+          overlayGrid.innerHTML = imageSrcList.map(src => `<div class="image-overlay-item"><img src="${src}" alt=""></div>`).join('');
+          overlay.classList.add('open');
+          overlay.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+
+          const imgs = [...overlayGrid.querySelectorAll('img')];
+          let pending = imgs.length;
+          if (pending === 0) return;
+
+          const scheduleFit = () => {
+            requestAnimationFrame(() => {
+              requestAnimationFrame(fitOverlayToViewport);
+            });
+          };
+
+          imgs.forEach((img) => {
+            const onDone = () => {
+              if (--pending === 0) scheduleFit();
+            };
+            if (img.complete) onDone();
+            else {
+              img.addEventListener('load', onDone, { once: true });
+              img.addEventListener('error', onDone, { once: true });
+            }
+          });
+        }
+
+        window.addEventListener('resize', () => {
+          if (!overlay.classList.contains('open') || !overlayGrid.children.length) return;
+          fitOverlayToViewport();
+        });
+
+        // 背景(余白)クリックで閉じる
+        overlay.addEventListener('click', closeOverlay);
+        overlayPanel.addEventListener('click', (e) => e.stopPropagation());
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
+        });
 
         for (const item of gameItems) {
         const mainImg = item.querySelector('.game-card img');
         const detailRow = item.querySelector('.detail-row');
-        const detailToggle = item.querySelector('.detail-toggle');
-        const detailContent = item.querySelector('.detail-content');
-        const detailGrid = item.querySelector('.detail-grid');
+        const gameCard = item.querySelector('.game-card');
 
-        if (!mainImg || !detailRow || !detailToggle || !detailContent || !detailGrid) continue;
+        if (!mainImg || !detailRow || !gameCard) continue;
 
         const mainSrc = mainImg.getAttribute('src'); 
         // 例: images/game08_icon.png
@@ -501,21 +733,9 @@
             continue;
         }
 
-        // 画像があれば表示
-        detailRow.style.display = 'block';
-
-        detailGrid.innerHTML = detailImages.map(src => `
-            <div class="detail-image-wrapper">
-            <img src="${src}" alt="">
-            </div>
-        `).join('');
-
-        detailToggle.addEventListener('click', () => {
-            detailContent.classList.toggle('open');
-            detailToggle.textContent = detailContent.classList.contains('open')
-            ? '▲ 詳細画像を閉じる'
-            : '▼ 詳細画像を見る';
-        });
+        // カードクリックで全画面表示
+        gameCard.classList.add('has-details');
+        gameCard.addEventListener('click', () => openOverlay(detailImages));
         }
     }
 
