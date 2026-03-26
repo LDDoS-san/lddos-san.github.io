@@ -574,16 +574,36 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    function checkImageExists(src) {
-        return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
-        img.src = src;
-        });
+    const __detailImagePreloadCache = new Map(); // src -> Image
+
+    function preloadImage(src) {
+      if (__detailImagePreloadCache.has(src)) return;
+      const img = new Image();
+      img.src = src;
+      __detailImagePreloadCache.set(src, img);
     }
 
-    async function setupDetailImages() {
+    // フォルダ探索はブラウザからできないので、存在する詳細画像だけを事前に列挙
+    const DETAIL_MAP = {
+      "images/game07_icon.png": [
+        "images/game07_1.png",
+        "images/game07_2.png",
+        "images/game07_3.png",
+        "images/game07_4.png"
+      ],
+      "images/game13_icon.png": [
+        "images/game13_1.png",
+        "images/game13_2.png"
+      ],
+      "images/game14_icon.png": [
+        "images/game14_1.png",
+        "images/game14_2.png",
+        "images/game14_3.png",
+        "images/game14_4.png"
+      ]
+    };
+
+    function setupDetailImages() {
         const gameItems = document.querySelectorAll('.game-item');
         const overlay = document.getElementById('imageOverlay');
         const overlayPanel = overlay.querySelector('.image-overlay-panel');
@@ -703,35 +723,17 @@
 
         if (!mainImg || !detailRow || !gameCard) continue;
 
-        const mainSrc = mainImg.getAttribute('src'); 
-        // 例: images/game08_icon.png
-
-        const match = mainSrc.match(/^(.*\/)([^\/]+)_icon(\.[^.]+)$/);
-        if (!match) {
-            detailRow.style.display = 'none';
-            continue;
-        }
-
-        const folder = match[1];      // images/
-        const baseName = match[2];    // game08
-        const ext = match[3];         // .png
-
-        const detailImages = [];
-
-        // 必要枚数ぶんだけ探す（ここでは 1〜8）
-        for (let i = 1; i <= 8; i++) {
-            const detailSrc = `${folder}${baseName}_${i}${ext}`;
-            const exists = await checkImageExists(detailSrc);
-            if (exists) {
-            detailImages.push(detailSrc);
-            }
-        }
+        const mainSrc = mainImg.getAttribute('src');
+        const detailImages = DETAIL_MAP[mainSrc] ?? [];
 
         // 1枚もなければ詳細ボタンごと消す
         if (detailImages.length === 0) {
             detailRow.style.display = 'none';
             continue;
         }
+
+        // クリック前にプリロードしてラグ軽減
+        detailImages.forEach(preloadImage);
 
         // カードクリックで全画面表示
         gameCard.classList.add('has-details');

@@ -452,16 +452,31 @@
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    function checkImageExists(src) {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
-        img.src = src;
-      });
+    const __detailImagePreloadCache = new Map(); // src -> Image
+
+    function preloadImage(src) {
+      if (__detailImagePreloadCache.has(src)) return;
+      const img = new Image();
+      img.src = src;
+      __detailImagePreloadCache.set(src, img);
     }
 
-    async function setupDetailImages() {
+    // フォルダ探索はブラウザからできないので、存在する詳細画像だけを事前に列挙
+    const DETAIL_MAP = {
+      "images/other08_icon.png": [
+        "images/other08_1.png",
+        "images/other08_2.png",
+        "images/other08_3.png"
+      ],
+      "images/other11_icon.png": [
+        "images/other11_1.png",
+        "images/other11_2.png",
+        "images/other11_3.png",
+        "images/other11_4.png"
+      ]
+    };
+
+    function setupDetailImages() {
       const gameItems = document.querySelectorAll('.game-item');
       const overlay = document.getElementById('imageOverlay');
       const overlayPanel = overlay.querySelector('.image-overlay-panel');
@@ -581,28 +596,14 @@
         if (!mainImg || !detailRow || !gameCard) continue;
 
         const mainSrc = mainImg.getAttribute('src');
-        const match = mainSrc.match(/^(.*\/)([^\/]+)_icon(\.[^.]+)$/);
-        if (!match) {
-          detailRow.style.display = 'none';
-          continue;
-        }
-
-        const folder = match[1];
-        const baseName = match[2];
-        const ext = match[3];
-        const detailImages = [];
-
-        for (let i = 1; i <= 8; i++) {
-          const detailSrc = `${folder}${baseName}_${i}${ext}`;
-          const exists = await checkImageExists(detailSrc);
-          if (exists) detailImages.push(detailSrc);
-        }
+        const detailImages = DETAIL_MAP[mainSrc] ?? [];
 
         if (detailImages.length === 0) {
           detailRow.style.display = 'none';
           continue;
         }
 
+        detailImages.forEach(preloadImage);
         gameCard.classList.add('has-details');
         gameCard.addEventListener('click', () => openOverlay(detailImages));
       }
