@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>小野 敬生のポートフォリオ — 研究</title>
-  <meta name="description" content="小野 敬生の研究紹介ページです。LDDoS攻撃に関する研究をしています。" />
+  <meta name="description" content="LDDoS攻撃下におけるTCP/QUICの輻輳制御特性の分析とBBR改良手法の提案。ns-3、quiche、Dockerを用いた卒業研究の紹介です。" />
   <style>
     :root {
       --bg: #f9fafb;
@@ -58,30 +58,136 @@
       text-align: center;
       font-size: 32px;
       margin-bottom: 40px;
+      color: #111827;
     }
 
     .research-card {
       background: var(--card);
       border-radius: var(--radius);
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      padding: 30px;
+      padding: 32px 36px;
     }
 
-    h2 {
+    .research-card h2 {
       color: var(--accent);
       margin-top: 32px;
-      margin-bottom: 8px;
+      margin-bottom: 14px;
       font-size: 20px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(99, 102, 241, 0.2);
     }
 
-    p {
+    .research-card h2:first-of-type {
+      margin-top: 0;
+    }
+
+    .research-card p {
+      color: var(--muted);
+      line-height: 1.9;
+      margin: 0 0 14px;
+    }
+
+    .research-card ul {
       color: var(--muted);
       line-height: 1.8;
+      margin: 0 0 14px;
+      padding-left: 1.35rem;
     }
 
-    ul {
+    .research-card ul li {
+      margin-bottom: 0.55em;
+    }
+
+    .research-card ul li:last-child {
+      margin-bottom: 0;
+    }
+
+    .theme-line {
+      font-size: 1.05rem;
+      color: #1e293b;
+      font-weight: 600;
+      line-height: 1.65;
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 22px 0 26px;
+      align-items: start;
+    }
+
+    .compare-item {
+      text-align: center;
+      background: rgba(241, 245, 249, 0.6);
+      border-radius: var(--radius);
+      padding: 14px 12px 16px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .compare-label {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 10px;
+    }
+
+    .compare-item img {
+      width: 100%;
+      height: auto;
+      max-height: 280px;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .figure-block {
+      text-align: center;
+      margin: 26px 0;
+    }
+
+    .figure-block img {
+      max-width: 100%;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .figure-caption {
       color: var(--muted);
-      padding-left: 20px;
+      font-size: 14px;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .keyword-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 10px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .keyword-list li {
+      margin: 0;
+      padding: 6px 12px;
+      background: rgba(99, 102, 241, 0.08);
+      border-radius: 999px;
+      font-size: 13px;
+      color: #4338ca;
+      font-weight: 600;
+    }
+
+    .tag-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 14px;
+    }
+
+    .tag-rows .keyword-list {
+      margin: 0;
     }
 
     footer {
@@ -92,6 +198,18 @@
       border-top: 1px solid rgba(0,0,0,0.05);
       background: #ffffff;
       margin-top: 60px;
+    }
+
+    @media (max-width: 700px) {
+      .compare-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      main { padding: 40px 18px; }
+      .research-card { padding: 22px 18px; }
+      h1 { font-size: 26px; }
     }
   </style>
 </head>
@@ -111,48 +229,90 @@
 
     <div class="research-card">
       <h2>研究テーマ</h2>
-      <p><strong>「タイトル」</strong></p>
-      
+      <p class="theme-line">LDDoS攻撃下におけるTCP/QUICの輻輳制御特性の分析および改良手法の提案</p>
+
       <h2>概要</h2>
       <p>
-        本研究では、インターネット上の輻輳制御メカニズムを悪用する「<strong>低レートDDoS攻撃（LDDoS攻撃）</strong>」に着目し、
-        <strong>輻輳制御アルゴリズムごとの耐性</strong>を検証しました。また、より耐性の高い輻輳制御アルゴリズムの開発も行いました。
+        <strong>LDDoS攻撃</strong>は、短時間のバースト通信を周期的に送ることで、目立ちにくい一方で通信品質を大きく落とす攻撃です。
       </p>
-      
-      <h2>背景</h2>
       <p>
-        一般的なDDoS攻撃は大量のトラフィックで帯域を埋め尽くしますが、LDDoS攻撃は<strong>一定周期で</strong>トラフィックを送信し、
-        通信品質を低下させます。ステルス性が高いため、攻撃の<strong>検知や防御が難しい</strong>という特徴があります。
-      </p>
-      
-      <h2>研究内容</h2>
-      <p>
-        ns-3およびCloudflareのQUIC実装（quiche）を用い、
-        Docker環境で<strong>クライアント・サーバ間通信と複数アタッカーによるLDDoS攻撃を再現</strong>しました。<br>
-        条件を変更しながらスループット、遅延、輻輳ウィンドウサイズを測定し、
-        通信プロトコルや輻輳制御アルゴリズムごとのLDDoS攻撃耐性の違いを分析しました。
-      </p>
-      
-      <h2>成果と今後の展望</h2>
-      <p>
-        いろいろわかりました。
+        本研究では事前検証として、TCP と QUIC がこの攻撃を受けたときにどう影響するかを、<strong>複数の輻輳制御アルゴリズムごとに比較・分析</strong>しました。その結果、TCP か QUIC かという違い以上に、<strong>どの輻輳制御アルゴリズムを使うかが性能に大きく影響する</strong>ことを示しました。さらにその知見をもとに、攻撃下でも比較的耐性が高かった BBR に着目し、<strong>通信を安定化</strong>させる改良を提案・評価しました。
       </p>
 
-      <!-- グラフ画像を追加 -->
-      <div style="text-align:center; margin:30px 0;">
-        <img src="images/result_graph.png" alt="LDDoS攻撃耐性の結果グラフ" style="max-width:100%; border-radius:var(--radius); box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-        <p style="color:var(--muted); font-size:14px; margin-top:8px;">図1: 輻輳制御アルゴリズムごとのLDDoS攻撃耐性比較</p>
+      <div class="compare-row" aria-label="DDoSとLDDoSのトラフィック比較">
+        <div class="compare-item">
+          <div class="compare-label">DDoS</div>
+          <img src="images/DDoS.png" alt="DDoS攻撃のイメージ">
+        </div>
+        <div class="compare-item">
+          <div class="compare-label">LDDoS</div>
+          <img src="images/LDDoS.png" alt="LDDoS攻撃のイメージ">
+        </div>
       </div>
 
-      <h2>使用技術・環境</h2>
+      <h2>取り組んだこと</h2>
       <ul>
-        <li>OS / 環境: Ubuntu</li>
-        <li>コンテナ / 仮想環境: Docker</li>
-        <li>シミュレータ: ns-3</li>
-        <li>QUIC実装: Cloudflare quiche (Rust)</li>
-        <li>ネットワーク環境: quic-network-simulator</li>
-        <li>分析: WireShark, Python (matplotlib, pandas)</li>
+        <li>TCP と QUIC の両方を対象に、<strong>NewReno / CUBIC / BBR</strong> という代表的な輻輳制御アルゴリズムを比較</li>
+        <li><strong>ns-3</strong> や <strong>quiche ベースのエミュレーション環境</strong>を用いて、LDDoS 攻撃時の通信性能を評価</li>
+        <li>平均スループットだけでなく、<strong>時系列での挙動の変化</strong>も分析し、性能差の要因を考察</li>
+        <li>分析結果をもとに、BBR の帯域推定に<strong>中央値を使った補正</strong>を加える改善を設計・評価</li>
       </ul>
+
+      <h2>提案手法のポイント</h2>
+      <ul>
+        <li>既存の BBR は耐性が高い一方、攻撃による一時的な観測値の乱れに影響を受ける場面がある。</li>
+        <li>提案手法では、<strong>直近の帯域幅推定値の中央値</strong>で補正し、攻撃パルスによる急な変動を受けにくくした。</li>
+        <li>これにより、攻撃下でも送信レートを<strong>過度に落とさず</strong>、より安定して性能を維持できるようにした。</li>
+        <li>単に強気な制御にするのではなく、<strong>他の通信との公平性</strong>を崩さないよう設計・検証した。</li>
+      </ul>
+
+      <h2>結果</h2>
+      <p>
+        TCP と QUIC の差そのものは大きくない一方、<strong>輻輳制御アルゴリズムの違いで性能差が大きく生じる</strong>ことが分かった。NewReno / CUBIC（パケットロスベース）は攻撃下で大きく性能低下し、BBR（転送遅延ベース）は比較的高い耐性を示した。
+      </p>
+      <p>
+        提案手法では、既存 BBR と比べて<strong>約 40% のスループット向上</strong>を確認しつつ、<strong>公平性も維持</strong>できた。
+      </p>
+
+      <div class="figure-block">
+        <img src="images/graph.png" alt="スループット推移（一例）">
+        <p class="figure-caption">スループット推移（一例）</p>
+      </div>
+
+      <div class="figure-block">
+        <img src="images/Kekka.png" alt="各条件における平均スループット">
+        <p class="figure-caption">各条件における平均スループット</p>
+      </div>
+
+      <h2>この研究で発揮した力</h2>
+      <ul>
+        <li><strong>分析力</strong>：複数のプロトコル・アルゴリズムの結果と仕様を比較し、性能差の主要因を整理</li>
+        <li><strong>課題発見力</strong>：攻撃化の通信性能改善に最も効くのが輻輳制御アルゴリズムであることを明確化</li>
+        <li><strong>提案力</strong>：分析から BBR 改良手法を考案し、性能向上を実現した</li>
+        <li><strong>計画・実行力</strong>：4 月に着手し、8 月までに比較分析、11 月までに提案手法の検証まで到達</li>
+        <li><strong>実験設計力</strong>：実環境に即した評価指標・ネットワーク条件で、リアルな検証を設計した</li>
+        <li><strong>技術理解力</strong>：ネットワーク、輻輳制御、QUIC/TCP、シミュレーション環境を横断して扱った</li>
+      </ul>
+
+      <h2>使用技術・キーワード</h2>
+      <div class="tag-rows">
+        <ul class="keyword-list">
+          <li>ns-3</li>
+          <li>quiche</li>
+          <li>quic-network-simulator</li>
+          <li>Docker</li>
+        </ul>
+        <ul class="keyword-list">
+          <li>トランスポートプロトコル</li>
+          <li>TCP</li>
+          <li>QUIC</li>
+          <li>輻輳制御</li>
+          <li>NewReno</li>
+          <li>CUBIC</li>
+          <li>BBR</li>
+          <li>セキュリティ</li>
+        </ul>
+      </div>
     </div>
   </main>
 
