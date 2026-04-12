@@ -161,6 +161,43 @@
       font-size:14px;
     }
 
+    .game-play-link{
+      display:inline-flex;
+      align-items:center;
+      margin-top:10px;
+      font-size:14px;
+      font-weight:700;
+      color:var(--accent);
+      text-decoration:none;
+    }
+    .game-play-link:hover{text-decoration:underline;}
+
+    .game-play-audio{
+      margin-top:10px;
+      display:flex;
+      flex-flow:row nowrap;
+      align-items:center;
+      gap:8px;
+      width:100%;
+      max-width:100%;
+      min-height:0;
+    }
+    .game-play-audio-label{
+      flex:0 0 auto;
+      font-size:14px;
+      font-weight:700;
+      color:var(--accent);
+      line-height:1.5;
+      white-space:nowrap;
+    }
+    .game-play-audio audio{
+      flex:1 1 auto;
+      min-width:0;
+      width:0;
+      height:32px;
+      max-height:32px;
+    }
+
     @media(max-width:500px){
       .game-card{
         flex-direction:column;
@@ -262,11 +299,48 @@
       object-fit:cover;
     }
 
+    /* ゴーストランニング other14: 縦長2枚を同じ横幅で並べ、上下は切らない */
+    .image-overlay-grid--other14-portrait{
+      display:grid;
+      grid-template-columns:max-content max-content;
+      gap:12px;
+      align-content:start;
+      align-items:start;
+      justify-content:center;
+    }
+    .image-overlay-grid--other14-portrait .other14-p{
+      width:min(380px, 42vw);
+      max-width:100%;
+      aspect-ratio:auto;
+      height:auto;
+      overflow:hidden;
+      border-radius:12px;
+      background:rgba(15, 23, 42, 0.06);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .image-overlay-grid--other14-portrait .other14-p img{
+      width:100%;
+      height:auto;
+      max-height:none;
+      object-fit:contain;
+      object-position:center center;
+    }
+
     .image-overlay-panel.overlay-compact .image-overlay-grid{
       grid-template-columns:max-content;
     }
 
     .image-overlay-panel.overlay-compact .image-overlay-item{
+      width:min(88vw, calc(100vw - 48px));
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-grid--other14-portrait{
+      grid-template-columns:min(88vw, calc(100vw - 48px));
+      justify-content:center;
+    }
+    .image-overlay-panel.overlay-compact .image-overlay-grid--other14-portrait .other14-p{
       width:min(88vw, calc(100vw - 48px));
     }
 
@@ -355,6 +429,26 @@
             <span class="category">予測 / ハッカソン</span>
             <h3>熱中症予測アプリ</h3>
             <p>気象や活動状況などから<strong>熱中症リスクを予測</strong>するアプリ。実用に向けた情報設計と表示に取り組んだ。</p>
+            <a class="game-play-link" href="https://lddos-san.github.io/DDASH/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Webで開く</a>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+      </div>
+
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/other14_icon.png" alt="ゴーストランニング">
+          <div class="game-info">
+            <span class="category">ランニング / 音声</span>
+            <h3>ゴーストランニング</h3>
+            <p>ゴーストと競争できるアプリ。<strong>iPhone用アプリとしてxcodeで作成。</strong></p>
+            <div class="game-play-audio" onclick="event.stopPropagation()">
+              <span class="game-play-audio-label">実際の音声を聞く</span>
+              <audio controls preload="metadata" src="images/ghost_running_audio.mp3"></audio>
+            </div>
           </div>
         </div>
         <div class="detail-row">
@@ -513,6 +607,10 @@
         "images/other11_2.png",
         "images/other11_3.png",
         "images/other11_4.png"
+      ],
+      "images/other14_icon.png": [
+        "images/other14_1.png",
+        "images/other14_2.png"
       ]
     };
 
@@ -583,14 +681,30 @@
       function closeOverlay() {
         overlay.classList.remove('open');
         overlay.setAttribute('aria-hidden', 'true');
+        overlayGrid.className = 'image-overlay-grid';
         overlayGrid.innerHTML = '';
         resetOverlayLayout();
         document.body.style.overflow = '';
       }
 
+      function isOther14PortraitList(list) {
+        if (!list || list.length !== 2) return false;
+        return /\/other14_1\./i.test(list[0]) && /\/other14_2\./i.test(list[1]);
+      }
+
       function openOverlay(imageSrcList) {
         resetOverlayLayout();
-        overlayGrid.innerHTML = imageSrcList.map(src => `<div class="image-overlay-item"><img src="${src}" alt=""></div>`).join('');
+        if (isOther14PortraitList(imageSrcList)) {
+          const a = imageSrcList[0];
+          const b = imageSrcList[1];
+          overlayGrid.className = 'image-overlay-grid image-overlay-grid--other14-portrait';
+          overlayGrid.innerHTML =
+            '<div class="image-overlay-item other14-p"><img src="' + a + '" alt=""></div>' +
+            '<div class="image-overlay-item other14-p"><img src="' + b + '" alt=""></div>';
+        } else {
+          overlayGrid.className = 'image-overlay-grid';
+          overlayGrid.innerHTML = imageSrcList.map((src) => '<div class="image-overlay-item"><img src="' + src + '" alt=""></div>').join('');
+        }
         overlay.classList.add('open');
         overlay.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
