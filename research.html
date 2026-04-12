@@ -48,6 +48,33 @@
     }
     nav a:hover { color: var(--accent); }
 
+    @media (max-width: 640px) {
+      header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 14px;
+      }
+      .logo {
+        text-align: center;
+        font-size: 17px;
+        line-height: 1.35;
+      }
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        column-gap: 2px;
+        row-gap: 4px;
+      }
+      nav a {
+        margin: 0;
+        padding: 6px 10px;
+        font-size: 13px;
+      }
+    }
+
     main {
       padding: 60px 40px;
       max-width: 900px;
@@ -103,7 +130,7 @@
     }
 
     .theme-line {
-      font-size: 1.05rem;
+      font-size: 1.28rem;
       color: #1e293b;
       font-weight: 600;
       line-height: 1.65;
@@ -210,6 +237,7 @@
       main { padding: 40px 18px; }
       .research-card { padding: 22px 18px; }
       h1 { font-size: 26px; }
+      .theme-line { font-size: 1.12rem; }
     }
   </style>
 </head>

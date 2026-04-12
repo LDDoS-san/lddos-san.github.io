@@ -35,6 +35,34 @@
     nav a{color:#334155; text-decoration:none; margin:0 12px; font-weight:600;}
     nav a:hover{color:var(--accent)}
 
+    @media(max-width:640px){
+      header{
+        flex-direction:column;
+        align-items:stretch;
+        gap:10px;
+        padding:12px 14px;
+      }
+      .logo{
+        text-align:center;
+        font-size:17px;
+        line-height:1.35;
+        letter-spacing:0.2px;
+      }
+      nav{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        align-items:center;
+        column-gap:2px;
+        row-gap:4px;
+      }
+      nav a{
+        margin:0;
+        padding:6px 10px;
+        font-size:13px;
+      }
+    }
+
     /* ===== HERO GRID ===== */
     .hero {
       position: relative;
@@ -47,20 +75,18 @@
       overflow: hidden;
     }
 
-    /* 背景画像グリッド */
+    /* 背景画像（一枚） */
     .hero-bg {
       position: absolute;
       inset: 0;
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-      z-index: 0; /* ← 背景として固定 */
+      z-index: 0;
     }
 
     .hero-bg img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     /* ここで白くする */
@@ -80,12 +106,12 @@
     .hero p{color:#334155; margin-bottom:20px; font-size:18px;}
     .hero .btn{
       display:inline-block;
-      padding:16px 34px;
+      padding:22px 48px;
       background:var(--accent);
       color:white;
       font-weight:800;
-      font-size:18px;
-      border-radius:14px;
+      font-size:22px;
+      border-radius:16px;
       text-decoration:none;
       transition:0.2s;
     }
@@ -113,6 +139,10 @@
     @media(max-width:700px){
       .hero h1{font-size:30px;}
       .hero p{font-size:16px;}
+      .hero .btn{
+        padding:18px 36px;
+        font-size:19px;
+      }
     }
   </style>
 </head>
@@ -130,40 +160,7 @@
   <!-- ===== HERO SECTION ===== -->
   <section class="hero">
     <div class="hero-bg">
-      <!-- 10 x 3 (30枚) -->
-      <!-- gameアイコン14枚 + otherアイコン13枚 + 指定3枚（重複なし） -->
-      <img src="images/other10_icon.png" alt="">
-      <img src="images/game07_2.png" alt="">
-      <img src="images/game03_icon.png" alt="">
-      <img src="images/other01_icon.webp" alt="">
-      <img src="images/game14_icon.png" alt="">
-      <img src="images/other12_icon.png" alt="">
-      <img src="images/game11_icon.png" alt="">
-      <img src="images/other06_icon.png" alt="">
-      <img src="images/game02_icon.png" alt="">
-      <img src="images/other08_icon.png" alt="">
-
-      <img src="images/game13_1.png" alt="">
-      <img src="images/other05_icon.png" alt="">
-      <img src="images/game07_icon.png" alt="">
-      <img src="images/other13_icon.png" alt="">
-      <img src="images/game08_icon.png" alt="">
-      <img src="images/other09_icon.png" alt="">
-      <img src="images/game14_1.png" alt="">
-      <img src="images/other03_icon.png" alt="">
-      <img src="images/game06_icon.png" alt="">
-      <img src="images/other04_icon.png" alt="">
-
-      <img src="images/game01_icon.png" alt="">
-      <img src="images/other11_icon.png" alt="">
-      <img src="images/game05_icon.png" alt="">
-      <img src="images/other07_icon.webp" alt="">
-      <img src="images/game13_icon.png" alt="">
-      <img src="images/other02_icon.png" alt="">
-      <img src="images/game12_icon.png" alt="">
-      <img src="images/game09_icon.png" alt="">
-      <img src="images/game10_icon.png" alt="">
-      <img src="images/game04_icon.png" alt="">
+      <img src="images/ALL.png" alt="">
     </div>
 
     <div class="hero-content">
@@ -178,7 +175,7 @@
     <h2>代表・主要プロジェクト</h2>
     <div class="project-grid">
       <a href="games.html" class="project-card">
-        <img src="images/game06_icon.png" alt="Unityゲームのサムネイル">
+        <img src="images/game13_4.png" alt="Unityゲームのサムネイル">
         <div class="info">
           <h3>ゲーム作品</h3>
           <p><strong>UnityやJava</strong>を用い、ホラーやRPG、AIボードなど幅広いジャンルのゲームを開発。技術面での探究と試行を重ね、完成度を磨きました。</p>
@@ -186,7 +183,7 @@
       </a>
 
       <a href="research.html" class="project-card">
-        <img src="images/result_graph.png" alt="卒業研究のサムネイル">
+        <img src="images/Kekka.png" alt="卒業研究のサムネイル">
         <div class="info">
           <h3>研究</h3>
           <p><strong>Docker、ns-3、Cloudflare quiche</strong>などを組み合わせた通信再現環境を作成。LDDoS攻撃に対する輻輳制御の挙動を可視化しました。</p>

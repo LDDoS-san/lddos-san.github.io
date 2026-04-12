@@ -48,6 +48,33 @@
       color:var(--accent);
     }
 
+    @media(max-width:640px){
+      header{
+        flex-direction:column;
+        align-items:stretch;
+        gap:10px;
+        padding:12px 14px;
+      }
+      header .logo{
+        text-align:center;
+        font-size:17px;
+        line-height:1.35;
+      }
+      nav{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        align-items:center;
+        column-gap:2px;
+        row-gap:4px;
+      }
+      nav a{
+        margin:0;
+        padding:6px 10px;
+        font-size:13px;
+      }
+    }
+
     main{
       padding:60px 40px; 
       max-width:1200px; 
@@ -442,7 +469,7 @@
         <div class="game-card">
           <img src="images/other14_icon.png" alt="ゴーストランニング">
           <div class="game-info">
-            <span class="category">ランニング / 音声</span>
+            <span class="category">ランニング / iPhone</span>
             <h3>ゴーストランニング</h3>
             <p>ゴーストと競争できるアプリ。<strong>iPhone用アプリとしてxcodeで作成。</strong></p>
             <div class="game-play-audio" onclick="event.stopPropagation()">
