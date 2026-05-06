@@ -103,6 +103,7 @@
 
     .game-card{
       display:flex;
+      position:relative;
       background:var(--card); 
       border-radius:var(--radius); 
       box-shadow:0 4px 12px rgba(0,0,0,0.05); 
@@ -139,6 +140,16 @@
       outline:3px solid rgba(99, 102, 241, 0.8);
       outline-offset:2px;
     }
+    .game-card.has-ai.has-details{
+      outline-color:rgba(217, 119, 43, 0.31);
+    }
+    .game-card.has-ai.has-details:hover{
+      outline-color:rgba(217, 119, 43, 0.58);
+    }
+    .game-card.has-ai.has-details:focus-visible{
+      outline:3px solid rgba(217, 119, 43, 0.70);
+      outline-offset:2px;
+    }
 
     .game-card.has-details::after{
       content:"クリックで詳細画像";
@@ -154,6 +165,9 @@
       letter-spacing:0.2px;
       box-shadow:0 6px 14px rgba(0,0,0,0.18);
       pointer-events:none;
+    }
+    .game-card.has-ai.has-details::after{
+      background:rgba(217, 119, 43, 0.90);
     }
 
     @media(max-width:500px){
@@ -171,11 +185,35 @@
       flex-direction:column; 
       justify-content:center;
     }
+    .meta-line{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:0;
+    }
     .game-info .category{
       font-size:13px; 
       color:var(--accent); 
-      margin-bottom:6px; 
+      margin-bottom:0; 
       display:block;
+    }
+    .game-card.has-ai .category{
+      color:#d9772b;
+    }
+    .ai-badge{
+      display:inline-block;
+      margin:0;
+      padding:3px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:0.2px;
+      color:#b4531a;
+      background:rgba(217, 119, 43, 0.13);
+      border:1px solid rgba(217, 119, 43, 0.35);
+      width:fit-content;
+      white-space:nowrap;
     }
     .game-info h3{
       margin:0 0 6px 0; 
@@ -198,6 +236,9 @@
       text-decoration:none;
     }
     .game-play-link:hover{text-decoration:underline;}
+    .game-card.has-ai .game-play-link:not(.game-play-link--grey){
+      color:#d9772b;
+    }
 
     .game-play-link--grey{
       color:var(--muted);
@@ -490,10 +531,13 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card">
+        <div class="game-card has-ai">
           <img src="images/game15_icon.png" alt="FOGSITE">
           <div class="game-info">
-            <span class="category">再現作品 / ストラテジー</span>
+            <div class="meta-line">
+              <span class="category">再現作品 / ストラテジー</span>
+              <span class="ai-badge">AI: Cursor</span>
+            </div>
             <h3>FOGSITE</h3>
             <p>ボードゲームの再現作品。<strong>オンライン対戦を実装した。</strong>また、スマホでも遊べるようにモバイル対応も行った。</p>
             <span class="game-play-link game-play-link--grey" onclick="event.stopPropagation()">再現作品のため限定公開</span>
@@ -526,10 +570,13 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card">
+        <div class="game-card has-ai">
           <img src="images/game14_icon.png" alt="スナイパー">
           <div class="game-info">
-            <span class="category">アクション / シューティング</span>
+            <div class="meta-line">
+              <span class="category">アクション / シューティング</span>
+              <span class="ai-badge">AI: Cursor</span>
+            </div>
             <h3>スナイパー</h3>
             <p>狙撃して敵から逃げるゲーム。<strong>ランダムなマップ</strong>にしながらゲームバランスが崩壊しないよう調整した。レンダリングを軽くするのに苦労した。</p>
             <a class="game-play-link" href="https://unityroom.com/games/sniper-sniper" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>

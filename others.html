@@ -103,6 +103,7 @@
 
     .game-card{
       display:flex;
+      position:relative;
       background:var(--card); 
       border-radius:var(--radius); 
       box-shadow:0 4px 12px rgba(0,0,0,0.05); 
@@ -132,6 +133,16 @@
       outline:3px solid rgba(99, 102, 241, 0.8);
       outline-offset:2px;
     }
+    .game-card.has-ai.has-details{
+      outline-color:rgba(217, 119, 43, 0.31);
+    }
+    .game-card.has-ai.has-details:hover{
+      outline-color:rgba(217, 119, 43, 0.58);
+    }
+    .game-card.has-ai.has-details:focus-visible{
+      outline:3px solid rgba(217, 119, 43, 0.70);
+      outline-offset:2px;
+    }
 
     .game-card.has-details::after{
       content:"クリックで詳細画像";
@@ -147,6 +158,9 @@
       letter-spacing:0.2px;
       box-shadow:0 6px 14px rgba(0,0,0,0.18);
       pointer-events:none;
+    }
+    .game-card.has-ai.has-details::after{
+      background:rgba(217, 119, 43, 0.90);
     }
 
     @media(max-width:500px){
@@ -171,11 +185,35 @@
       flex-direction:column; 
       justify-content:center;
     }
+    .meta-line{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      margin-bottom:0;
+    }
     .game-info .category{
       font-size:13px; 
       color:var(--accent); 
-      margin-bottom:6px; 
+      margin-bottom:0; 
       display:block;
+    }
+    .game-card.has-ai .category{
+      color:#d9772b;
+    }
+    .ai-badge{
+      display:inline-block;
+      margin:0;
+      padding:3px 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:0.2px;
+      color:#b4531a;
+      background:rgba(217, 119, 43, 0.13);
+      border:1px solid rgba(217, 119, 43, 0.35);
+      width:fit-content;
+      white-space:nowrap;
     }
     .game-info h3{
       margin:0 0 6px 0; 
@@ -198,6 +236,9 @@
       text-decoration:none;
     }
     .game-play-link:hover{text-decoration:underline;}
+    .game-card.has-ai .game-play-link:not(.game-play-link--grey){
+      color:#d9772b;
+    }
 
     .game-play-audio{
       margin-top:10px;
@@ -216,6 +257,9 @@
       color:var(--accent);
       line-height:1.5;
       white-space:nowrap;
+    }
+    .game-card.has-ai .game-play-audio-label{
+      color:#d9772b;
     }
     .game-play-audio audio{
       flex:1 1 auto;
@@ -450,10 +494,13 @@
     <div class="game-grid">
 
       <div class="game-item">
-        <div class="game-card">
+        <div class="game-card has-ai">
           <img src="images/other08_icon.png" alt="熱中症予測アプリ">
           <div class="game-info">
-            <span class="category">予測 / ハッカソン</span>
+            <div class="meta-line">
+              <span class="category">予測 / ハッカソン</span>
+              <span class="ai-badge">AI: ChatGPT</span>
+            </div>
             <h3>熱中症予測アプリ</h3>
             <p>気象や活動状況などから<strong>熱中症リスクを予測</strong>するアプリ。実用に向けた情報設計と表示に取り組んだ。</p>
             <a class="game-play-link" href="https://lddos-san.github.io/DDASH/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Webで開く</a>
@@ -466,12 +513,15 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card">
+        <div class="game-card has-ai">
           <img src="images/other14_icon.png" alt="ゴーストランニング">
           <div class="game-info">
-            <span class="category">ランニング / iPhone</span>
+            <div class="meta-line">
+              <span class="category">ランニング / iPhone</span>
+              <span class="ai-badge">AI: Cursor</span>
+            </div>
             <h3>ゴーストランニング</h3>
-            <p>ゴーストと競争できるアプリ。<strong>iPhone用アプリとしてxcodeで作成。</strong></p>
+            <p>ゴーストと競争できるアプリ。<strong>iPhone用アプリとしてXcodeで作成。</strong></p>
             <div class="game-play-audio" onclick="event.stopPropagation()">
               <span class="game-play-audio-label">実際の音声を聞く</span>
               <audio controls preload="metadata" src="images/ghost_running_audio.mp3"></audio>
@@ -519,6 +569,25 @@
           <div class="detail-content"><div class="detail-grid"></div></div>
         </div>
       </div>
+
+      <div class="game-item">
+        <div class="game-card has-ai">
+          <img src="images/other15_icon.png" alt="カモノハシの動く城">
+          <div class="game-info">
+            <div class="meta-line">
+              <span class="category">Blender / モデリング / リギング</span>
+              <span class="ai-badge">AI: TRIPO</span>
+            </div>
+            <h3>カモノハシの動く城</h3>
+            <p>ゲーム用に<strong>AIを活用して制作した</strong>モデル。AIモデリング特有の難しさがあったが、素人が一から作るよりも明らかに高い完成度で仕上げることができた。</p>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+      </div>
+
 
       <div class="game-card">
         <img src="images/other03_icon.png" alt="エバー">
@@ -588,7 +657,6 @@
           <div class="detail-content"><div class="detail-grid"></div></div>
         </div>
       </div>
-
     </div>
   </main>
 
@@ -627,7 +695,8 @@
       "images/other08_icon.png": [
         "images/other08_1.png",
         "images/other08_2.png",
-        "images/other08_3.png"
+        "images/other08_3.png",
+        "images/other08_4.png"
       ],
       "images/other11_icon.png": [
         "images/other11_1.png",
@@ -638,6 +707,14 @@
       "images/other14_icon.png": [
         "images/other14_1.png",
         "images/other14_2.png"
+      ],
+      "images/other15_icon.png": [
+        "images/other15_1.png",
+        "images/other15_2.png",
+        "images/other15_3.png",
+        "images/other15_4.png",
+        "images/other15_5.png",
+        "images/other15_6.png"
       ]
     };
 
