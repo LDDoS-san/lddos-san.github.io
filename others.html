@@ -363,6 +363,18 @@
       border-radius:12px;
     }
 
+    .image-overlay-item--wide{
+      grid-column:span 2;
+      width:calc((640px * 2) + 12px);
+      aspect-ratio:32 / 9;
+    }
+
+    .image-overlay-item--tall{
+      grid-row:span 2;
+      width:min(420px, 42vw);
+      aspect-ratio:9 / 16;
+    }
+
     .image-overlay-grid img{
       display:block;
       width:100%;
@@ -382,7 +394,7 @@
     .image-overlay-grid--other14-portrait .other14-p{
       width:min(380px, 42vw);
       max-width:100%;
-      aspect-ratio:auto;
+      aspect-ratio:9 / 16;
       height:auto;
       overflow:hidden;
       border-radius:12px;
@@ -393,9 +405,8 @@
     }
     .image-overlay-grid--other14-portrait .other14-p img{
       width:100%;
-      height:auto;
-      max-height:none;
-      object-fit:contain;
+      height:100%;
+      object-fit:cover;
       object-position:center center;
     }
 
@@ -405,6 +416,17 @@
 
     .image-overlay-panel.overlay-compact .image-overlay-item{
       width:min(88vw, calc(100vw - 48px));
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-item--wide{
+      grid-column:auto;
+      aspect-ratio:32 / 9;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-item--tall{
+      grid-row:auto;
+      width:min(88vw, calc(100vw - 48px));
+      aspect-ratio:9 / 16;
     }
 
     .image-overlay-panel.overlay-compact .image-overlay-grid--other14-portrait{
@@ -532,6 +554,24 @@
           <div class="detail-toggle"></div>
           <div class="detail-content"><div class="detail-grid"></div></div>
         </div>
+            
+      </div>
+
+      <div class="game-item">
+        <div class="game-card">
+          <img src="images/other16_icon.png" alt="タイピングボクシング（バックエンド）">
+          <div class="game-info">
+            <span class="category">バックエンド / ゲーム</span>
+            <h3>タイピングボクシング（バックエンド）</h3>
+            <p><strong>AWS、Spring Boot、GitHub Actionsなど</strong>、バックエンドの技術を学習しながら制作した。</p>
+            <a class="game-play-link" href="http://34.230.89.197:8080/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Webで開く</a>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle"></div>
+          <div class="detail-content"><div class="detail-grid"></div></div>
+        </div>
+            
       </div>
 
     </div>
@@ -715,6 +755,11 @@
         "images/other15_4.png",
         "images/other15_5.png",
         "images/other15_6.png"
+      ],
+      "images/other16_icon.png": [
+        "images/other16_1.png",
+        "images/other16_2.png",
+        "images/other16_3.png"
       ]
     };
 
@@ -796,6 +841,18 @@
         return /\/other14_1\./i.test(list[0]) && /\/other14_2\./i.test(list[1]);
       }
 
+      function adjustImageFit(img) {
+        const frame = img.closest('.image-overlay-item');
+        if (!frame || !img.naturalWidth || !img.naturalHeight) return;
+
+        const imageRatio = img.naturalWidth / img.naturalHeight;
+        const shouldSpanTall = imageRatio < 0.9;
+        const shouldSpanWide = imageRatio > 3;
+
+        frame.classList.toggle('image-overlay-item--wide', shouldSpanWide);
+        frame.classList.toggle('image-overlay-item--tall', shouldSpanTall);
+      }
+
       function openOverlay(imageSrcList) {
         resetOverlayLayout();
         if (isOther14PortraitList(imageSrcList)) {
@@ -825,6 +882,7 @@
 
         imgs.forEach((img) => {
           const onDone = () => {
+            adjustImageFit(img);
             if (--pending === 0) scheduleFit();
           };
           if (img.complete) onDone();
@@ -841,7 +899,6 @@
       });
 
       overlay.addEventListener('click', closeOverlay);
-      overlayPanel.addEventListener('click', (e) => e.stopPropagation());
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
       });

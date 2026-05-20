@@ -392,6 +392,18 @@
       border-radius:12px;
     }
 
+    .image-overlay-item--wide{
+      grid-column:span 2;
+      width:calc((640px * 2) + 12px);
+      aspect-ratio:32 / 9;
+    }
+
+    .image-overlay-item--tall{
+      grid-row:span 2;
+      width:min(420px, 42vw);
+      aspect-ratio:9 / 16;
+    }
+
     .image-overlay-grid img{
       display:block;
       width:100%;
@@ -427,11 +439,9 @@
       background:rgba(15, 23, 42, 0.06);
     }
     .image-overlay-grid--fogsite .fogsite-2-span img{
-      width:auto;
-      height:auto;
-      max-width:100%;
-      max-height:100%;
-      object-fit:contain;
+      width:100%;
+      height:100%;
+      object-fit:cover;
       object-position:center center;
     }
     .image-overlay-grid--fogsite .fogsite-3{
@@ -445,6 +455,17 @@
 
     .image-overlay-panel.overlay-compact .image-overlay-item{
       width:min(88vw, calc(100vw - 48px));
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-item--wide{
+      grid-column:auto;
+      aspect-ratio:32 / 9;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-item--tall{
+      grid-row:auto;
+      width:min(88vw, calc(100vw - 48px));
+      aspect-ratio:9 / 16;
     }
 
     .image-overlay-panel.overlay-compact .image-overlay-grid--fogsite{
@@ -713,6 +734,27 @@
           </div>
         </div>
       </div>
+
+      <div class="game-item">
+        <div class="game-card has-ai">
+          <img src="images/game16_icon.png" alt="タイピングボクシング">
+          <div class="game-info">
+            <div class="meta-line">
+              <span class="category">タイピング</span>
+              <span class="ai-badge">AI: Codex</span>
+            </div>
+            <h3>タイピングボクシング</h3>
+            <p>日本語・英語に加え、プログラムのコードを含めたタイピングゲーム。<strong>バックエンドの開発</strong>を行い、ログイン機能を作成した。</p>
+            <a class="game-play-link" href="http://34.230.89.197:8080/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Webで開く</a>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid"></div>
+          </div>
+        </div>
+      </div>
     
     </div>
     
@@ -843,6 +885,11 @@
         "images/game15_1.png",
         "images/game15_2.png",
         "images/game15_3.png"
+      ],
+      "images/game16_icon.png": [
+        "images/game16_1.png",
+        "images/game16_2.png",
+        "images/game16_3.png"
       ]
     };
 
@@ -923,6 +970,18 @@
           return /\/game15_1\./i.test(list[0]) && /\/game15_2\./i.test(list[1]) && /\/game15_3\./i.test(list[2]);
         }
 
+        function adjustImageFit(img) {
+          const frame = img.closest('.image-overlay-item');
+          if (!frame || !img.naturalWidth || !img.naturalHeight) return;
+
+          const imageRatio = img.naturalWidth / img.naturalHeight;
+          const shouldSpanTall = imageRatio < 0.9;
+          const shouldSpanWide = imageRatio > 3;
+
+          frame.classList.toggle('image-overlay-item--wide', shouldSpanWide);
+          frame.classList.toggle('image-overlay-item--tall', shouldSpanTall);
+        }
+
         function openOverlay(imageSrcList) {
           resetOverlayLayout();
           if (isFogsiteDetailList(imageSrcList)) {
@@ -956,6 +1015,7 @@
 
           imgs.forEach((img) => {
             const onDone = () => {
+              adjustImageFit(img);
               if (--pending === 0) scheduleFit();
             };
             if (img.complete) onDone();
@@ -973,7 +1033,6 @@
 
         // 背景(余白)クリックで閉じる
         overlay.addEventListener('click', closeOverlay);
-        overlayPanel.addEventListener('click', (e) => e.stopPropagation());
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
         });
