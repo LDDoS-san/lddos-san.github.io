@@ -437,6 +437,32 @@
       width:min(88vw, calc(100vw - 48px));
     }
 
+    .image-overlay-panel.overlay-compact .image-overlay-grid{
+      width:100%;
+      grid-template-columns:minmax(0, 1fr);
+      justify-items:center;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-item,
+    .image-overlay-panel.overlay-compact .image-overlay-item--wide,
+    .image-overlay-panel.overlay-compact .image-overlay-item--tall,
+    .image-overlay-panel.overlay-compact .image-overlay-grid--other14-portrait .other14-p{
+      width:100%;
+      max-width:100%;
+      height:auto;
+      aspect-ratio:auto;
+      overflow:visible;
+      align-self:start;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-grid img{
+      width:100%;
+      height:auto;
+      max-width:100%;
+      object-fit:contain;
+      border-radius:12px;
+    }
+
     footer{
       padding:24px; 
       text-align:center; 

@@ -102,7 +102,9 @@
     }
 
     .game-card{
-      display:flex;
+      display:grid;
+      grid-template-columns:150px minmax(0, 1fr);
+      grid-template-rows:1fr auto;
       position:relative;
       background:var(--card); 
       border-radius:var(--radius); 
@@ -116,10 +118,12 @@
     }
 
     .game-card img{
-      width:150px; 
-      height:150px; 
+      grid-column:1;
+      grid-row:1;
+      width:100%; 
+      height:100%;
+      min-height:150px;
       object-fit:cover; 
-      flex-shrink:0;
     }
 
     .game-card.has-details{
@@ -180,10 +184,13 @@
     }
 
     .game-info{
+      grid-column:2;
+      grid-row:1;
       padding:16px 20px; 
       display:flex; 
       flex-direction:column; 
       justify-content:center;
+      min-width:0;
     }
     .meta-line{
       display:flex;
@@ -226,14 +233,31 @@
       font-size:14px;
     }
 
+    .game-links{
+      grid-column:1 / -1;
+      grid-row:2;
+      box-sizing:border-box;
+      height:38px;
+      margin:0;
+      padding:0 20px;
+      border-top:1px solid rgba(99, 102, 241, 0.16);
+      background:rgba(99, 102, 241, 0.06);
+      display:flex;
+      align-items:center;
+      gap:16px;
+      overflow:hidden;
+      white-space:nowrap;
+    }
+
     .game-play-link{
       display:inline-flex;
       align-items:center;
-      margin-top:10px;
-      font-size:14px;
+      margin-top:0;
+      font-size:13px;
       font-weight:700;
       color:var(--accent);
       text-decoration:none;
+      flex:0 0 auto;
     }
     .game-play-link:hover{text-decoration:underline;}
     .game-card.has-ai .game-play-link:not(.game-play-link--grey){
@@ -244,23 +268,50 @@
       color:var(--muted);
       cursor:default;
       max-width:100%;
-      flex-wrap:wrap;
-      white-space:normal;
+      min-width:0;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
     }
     .game-play-link--grey:hover{
       text-decoration:none;
     }
+    .game-links--divided .game-play-link + .game-play-link{
+      padding-left:12px;
+      border-left:1px solid rgba(99, 102, 241, 0.28);
+    }
+    .game-card.has-ai .game-links{
+      background:rgba(217, 119, 43, 0.07);
+      border-top-color:rgba(217, 119, 43, 0.18);
+    }
+    .game-card.has-ai .game-links--divided .game-play-link + .game-play-link{
+      border-left-color:rgba(217, 119, 43, 0.28);
+    }
 
     @media(max-width:500px){
       .game-card{
-        flex-direction:column;
+        grid-template-columns:1fr;
+        grid-template-rows:auto auto auto;
       }
       .game-card img{
+        grid-column:1;
+        grid-row:1;
         width:100%;
         height:auto;
+        min-height:0;
       }
       .game-info{
+        grid-column:1;
+        grid-row:2;
         padding:12px;
+      }
+      .game-links{
+        grid-column:1;
+        grid-row:3;
+        height:36px;
+        margin:0;
+        padding:0 12px;
+        gap:12px;
       }
     }
     
@@ -486,6 +537,34 @@
       height:auto;
     }
 
+    .image-overlay-panel.overlay-compact .image-overlay-grid{
+      width:100%;
+      grid-template-columns:minmax(0, 1fr);
+      justify-items:center;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-item,
+    .image-overlay-panel.overlay-compact .image-overlay-item--wide,
+    .image-overlay-panel.overlay-compact .image-overlay-item--tall,
+    .image-overlay-panel.overlay-compact .image-overlay-grid--fogsite .fogsite-1,
+    .image-overlay-panel.overlay-compact .image-overlay-grid--fogsite .fogsite-2-span,
+    .image-overlay-panel.overlay-compact .image-overlay-grid--fogsite .fogsite-3{
+      width:100%;
+      max-width:100%;
+      height:auto;
+      aspect-ratio:auto;
+      overflow:visible;
+      align-self:start;
+    }
+
+    .image-overlay-panel.overlay-compact .image-overlay-grid img{
+      width:100%;
+      height:auto;
+      max-width:100%;
+      object-fit:contain;
+      border-radius:12px;
+    }
+
     footer{
       padding:24px; 
       text-align:center; 
@@ -522,8 +601,10 @@
             <span class="category">シミュレーション / アドベンチャー</span> 
             <h3>図書館警察シミュレーター</h3> 
             <p>1~2時間遊べるシミュレーションゲーム。<strong>一時間以上飽きずに</strong>遊んでもらえるゲームを目指し、ボリュームと飽きさせないシステムに注力。</p>
+          </div>
+          <div class="game-links">
             <a class="game-play-link" href="https://unityroom.com/games/lib-police-sim" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
-          </div> 
+          </div>
         </div>
         <div class="detail-row">
           <div class="detail-toggle">▼ 詳細画像を見る</div>
@@ -540,6 +621,8 @@
             <span class="category">アクション / ソードアクション</span>
             <h3>5εκlЯ0</h3>
             <p>某SEK*ROのようなゲーム。<strong>操作性や演出、ゲームバランス</strong>にこだわった。<strong>ランキング機能</strong>も実装し、記録を競えるようにした。</p>
+          </div>
+          <div class="game-links">
             <a class="game-play-link" href="https://unityroom.com/games/5eklr0" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
           </div>
         </div>
@@ -561,6 +644,8 @@
             </div>
             <h3>FOGSITE</h3>
             <p>ボードゲームの再現作品。<strong>オンライン対戦を実装した。</strong>また、スマホでも遊べるようにモバイル対応も行った。</p>
+          </div>
+          <div class="game-links">
             <span class="game-play-link game-play-link--grey" onclick="event.stopPropagation()">再現作品のため限定公開</span>
           </div>
         </div>
@@ -579,6 +664,8 @@
             <span class="category">アクション / タイピング</span>
             <h3>Winter Wars</h3>
             <p>サマーウォーズのように、忙しなくキーボードをたたくようなアクションゲーム。様々な技術を使って<strong>多彩な攻撃演出</strong>を実装した。</p>
+          </div>
+          <div class="game-links">
             <span class="game-play-link game-play-link--grey" onclick="event.stopPropagation()">プロジェクトデータが破損したため非公開</span>
           </div>
         </div>
@@ -600,6 +687,8 @@
             </div>
             <h3>スナイパー</h3>
             <p>狙撃して敵から逃げるゲーム。<strong>ランダムなマップ</strong>にしながらゲームバランスが崩壊しないよう調整した。レンダリングを軽くするのに苦労した。</p>
+          </div>
+          <div class="game-links">
             <a class="game-play-link" href="https://unityroom.com/games/sniper-sniper" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
           </div>
         </div>
@@ -618,6 +707,8 @@
             <span class="category">ホラー / アドベンチャー / 謎解き</span>
             <h3>ホラーゲーム</h3>
             <p><strong>表現や演出にこだわった</strong>ホラーゲーム。敵から隠れながら謎解きをして、閉ざされた建物からの脱出を目指す。</p>
+          </div>
+          <div class="game-links">
             <a class="game-play-link" href="https://unityroom.com/games/akarasamanahora" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
           </div>
         </div>
@@ -636,6 +727,8 @@
             <span class="category">シミュレーション / 育成</span>
             <h3>盆栽シミュレーター</h3>
             <p>盆栽を育てるシミュレーションゲーム。枝や葉の<strong>メッシュを自由に生成・変形</strong>させるのが難しそうだと思って制作した。</p>
+          </div>
+          <div class="game-links">
             <span class="game-play-link game-play-link--grey" onclick="event.stopPropagation()">ブラウザ上では負荷が高く、プレイできないため非公開</span>
           </div>
         </div>
@@ -657,6 +750,8 @@
             </div>
             <h3>ゴミ捨てのルール</h3>
             <p>ルールに対応しながらゴミを投げて捨てるアクションゲーム。<strong>オブジェクト指向の練習</strong>として、設計から行った。</p>
+          </div>
+          <div class="game-links">
             <a class="game-play-link" href="https://unityroom.com/games/gomisute_rule" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
           </div>
         </div>
@@ -675,6 +770,8 @@
             <span class="category">ストラテジー / 機械学習</span>
             <h3>機械学習ボードゲーム</h3>
             <p>プレイングをAIに学習させて、自分だけの「最強のCPU」を作るストラテジーゲーム。<strong>機械学習を１から実装</strong>した。</p>
+          </div>
+          <div class="game-links">
             <a class="game-play-link" href="https://unityroom.com/games/kgboardgame" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
           </div>
         </div>
@@ -693,6 +790,8 @@
             <span class="category">アクション / ソードアクション</span>
             <h3>サムライ対決</h3>
             <p>回避やカウンターを駆使して戦うアクションゲーム。<strong>アニメーションの編集など</strong>細かいテクニックを学んだ。諸事情で一週間で作った。</p>
+          </div>
+          <div class="game-links">
             <span class="game-play-link game-play-link--grey" onclick="event.stopPropagation()">プロジェクトデータが破損したため非公開</span>
           </div>
         </div>
@@ -711,6 +810,8 @@
             <span class="category">アクション / RPG</span>
             <h3>RPG</h3>
             <p>一般的なアクションゲーム。<strong>初めてUnityで制作した</strong>ゲームでもある。Youtubeの動画を真似しながら進めた。</p>
+          </div>
+          <div class="game-links">
             <a class="game-play-link" href="https://unityroom.com/games/watasinorpg1" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
           </div>
         </div>
@@ -731,8 +832,11 @@
               <span class="ai-badge">AI: Codex</span>
             </div>
             <h3>White Maze</h3>
-            <p>真っ白な空間に色を塗りながら迷路を進む。友人のリクエストで作成。</p>
+            <p>真っ白な空間に色を塗りながら迷路を進む。友人のリクエストで作成。モバイル対応も行った。</p>
+          </div>
+          <div class="game-links game-links--divided">
             <a class="game-play-link" href="https://unityroom.com/games/whitemaze" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
+            <a class="game-play-link" href="https://www.youtube.com/watch?v=6d40UYwqM3g" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">プレイ動画を見る</a>
           </div>
         </div>
         <div class="detail-row">
@@ -849,6 +953,8 @@
             </div>
             <h3>タイピングボクシング</h3>
             <p>日本語・英語に加え、プログラムのコードを含めたタイピングゲーム。<strong>バックエンドの開発</strong>を行い、ログイン機能を作成した。</p>
+          </div>
+          <div class="game-links">
             <a class="game-play-link" href="http://34.230.89.197:8080/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Webで開く</a>
           </div>
         </div>
