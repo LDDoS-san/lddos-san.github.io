@@ -293,6 +293,8 @@
       display:none;
       align-items:center;
       justify-content:center;
+      flex-direction:column;
+      gap:10px;
       padding:max(1vh, 8px) max(1vw, 8px);
       box-sizing:border-box;
       z-index:1000;
@@ -305,7 +307,7 @@
     .image-overlay-panel{
       box-sizing:border-box;
       max-width:min(90vw, calc(100vw - 16px));
-      max-height:min(90vh, calc(100vh - 16px));
+      max-height:min(86vh, calc(100vh - 56px));
       width:auto;
       height:auto;
       overflow:hidden;
@@ -316,6 +318,20 @@
       display:flex;
       align-items:center;
       justify-content:center;
+    }
+
+    .image-overlay-hint{
+      margin:0;
+      padding:6px 12px;
+      border-radius:999px;
+      color:#f8fafc;
+      background:rgba(15, 23, 42, 0.58);
+      font-size:13px;
+      font-weight:700;
+      line-height:1.4;
+      text-align:center;
+      text-shadow:0 1px 2px rgba(0,0,0,0.35);
+      pointer-events:none;
     }
 
     .image-overlay-panel.overlay-compact{
@@ -742,6 +758,7 @@
         </div>
       </div>
     </div>
+    <p class="image-overlay-hint">詳細画像は、画像をクリックしても閉じられます</p>
   </div>
 
   <script>
