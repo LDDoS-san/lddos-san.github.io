@@ -95,9 +95,73 @@
       gap:24px;
     }
 
+    .game-item--wide{
+      grid-column:1 / -1;
+    }
+
+    .game-item--wide .game-card{
+      grid-template-columns:300px minmax(0, 1fr);
+    }
+
+    .game-item--wide .game-info{
+      padding:28px 32px;
+    }
+
+    .game-item--wide .game-info .category{
+      font-size:15px;
+    }
+
+    .game-item--wide .game-info h3{
+      margin-bottom:10px;
+      font-size:28px;
+    }
+
+    .game-item--wide .game-info p{
+      font-size:16px;
+      line-height:1.75;
+    }
+
+    .game-item--wide .game-links{
+      height:46px;
+      padding:0 28px;
+      gap:22px;
+    }
+
+    .game-item--wide .game-play-link{
+      font-size:15px;
+    }
+
     @media(max-width:800px){
       .game-grid{
         grid-template-columns:1fr;
+      }
+      .game-item--wide{
+        grid-column:auto;
+      }
+      .game-item--wide .game-card{
+        grid-template-columns:150px minmax(0, 1fr);
+      }
+      .game-item--wide .game-info{
+        padding:16px 20px;
+      }
+      .game-item--wide .game-info .category{
+        font-size:13px;
+      }
+      .game-item--wide .game-info h3{
+        margin-bottom:6px;
+        font-size:20px;
+      }
+      .game-item--wide .game-info p{
+        font-size:14px;
+        line-height:normal;
+      }
+      .game-item--wide .game-links{
+        height:38px;
+        padding:0 20px;
+        gap:16px;
+      }
+      .game-item--wide .game-play-link{
+        font-size:13px;
       }
     }
 
@@ -290,6 +354,10 @@
 
     @media(max-width:500px){
       .game-card{
+        grid-template-columns:1fr;
+        grid-template-rows:auto auto auto;
+      }
+      .game-item--wide .game-card{
         grid-template-columns:1fr;
         grid-template-rows:auto auto auto;
       }
@@ -651,13 +719,13 @@
     <h2>Unity作品</h2>
     <div class="game-grid">
 
-      <div class="game-item">
+      <div class="game-item game-item--wide">
         <div class="game-card">
           <img src="images/game02_icon.png" alt="図書館警察シミュレーター"> 
           <div class="game-info"> 
             <span class="category">シミュレーション / アドベンチャー</span> 
             <h3>図書館警察シミュレーター</h3> 
-            <p>1~2時間遊べるシミュレーションゲーム。<strong>一時間以上飽きずに</strong>遊んでもらえるゲームを目指し、ボリュームと飽きさせないシステムに注力。</p>
+            <p><strong>1〜2時間遊べる完成度</strong>を目指して制作したシミュレーションゲーム。会話、探索、SNS風投稿、ミッション進行など複数の要素を組み合わせ、短いアイデア作品ではなく、最後まで遊び切れるゲーム体験として成立させることを重視した。<strong>テストプレイで飽きやすい箇所や進行の分かりにくさを確認</strong>し、イベントの密度や導線、テンポを調整することで、<strong>最後まで約2時間遊んでもらえる形に改善</strong>した。</p>
           </div>
           <div class="game-links game-links--divided">
             <a class="game-play-link" href="https://unityroom.com/games/lib-police-sim" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
@@ -696,18 +764,16 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card has-ai">
-          <img src="images/game19_icon.png" alt="プログラム・カタヨリスト">
+        <div class="game-card">
+          <img src="images/game07_icon.png" alt="Winter Wars">
           <div class="game-info">
-            <div class="meta-line">
-              <span class="category">プログラミング / パズル</span>
-              <span class="ai-badge">AI: Codex / TRIPO</span>
-            </div>
-            <h3>プログラム・カタヨリスト</h3>
-            <p>役割が違うカタヨリスト達をプログラムして、生活を自動化するゲーム。制作中も、遊びながら<strong>ゲームの方向性やバランスなどを調整</strong>した。</p>
+            <span class="category">アクション / タイピング</span>
+            <h3>Winter Wars</h3>
+            <p>サマーウォーズのように、忙しなくキーボードをたたくようなアクションゲーム。様々な技術を使って<strong>多彩な攻撃演出</strong>を実装した。</p>
           </div>
-          <div class="game-links">
-            <a class="game-play-link" href="https://unityroom.com/games/program-katayorist" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
+          <div class="game-links game-links--divided">
+            <span class="game-play-link game-play-link--grey" onclick="event.stopPropagation()">プロジェクトデータが破損したため非公開</span>
+            <a class="game-play-link" href="game-winter-wars.html" onclick="event.stopPropagation()">制作意図・技術的工夫を見る</a>
           </div>
         </div>
         <div class="detail-row">
@@ -719,16 +785,19 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card">
-          <img src="images/game07_icon.png" alt="Winter Wars">
+        <div class="game-card has-ai">
+          <img src="images/game19_icon.png" alt="プログラム・カタヨリスト">
           <div class="game-info">
-            <span class="category">アクション / タイピング</span>
-            <h3>Winter Wars</h3>
-            <p>サマーウォーズのように、忙しなくキーボードをたたくようなアクションゲーム。様々な技術を使って<strong>多彩な攻撃演出</strong>を実装した。</p>
+            <div class="meta-line">
+              <span class="category">プログラミング / パズル</span>
+              <span class="ai-badge">AI: Codex / TRIPO</span>
+            </div>
+            <h3>プログラム・カタヨリスト</h3>
+            <p>役割が違うカタヨリスト達をプログラムして、生活を自動化するゲーム。制作中も、遊びながら<strong>ゲームの方向性やバランスなどを調整</strong>した。</p>
           </div>
           <div class="game-links game-links--divided">
-            <span class="game-play-link game-play-link--grey" onclick="event.stopPropagation()">プロジェクトデータが破損したため非公開</span>
-            <a class="game-play-link" href="game-winter-wars.html" onclick="event.stopPropagation()">制作意図・技術的工夫を見る</a>
+            <a class="game-play-link" href="https://unityroom.com/games/program-katayorist" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
+            <a class="game-play-link" href="game-program-katayorist.html" onclick="event.stopPropagation()">制作意図・技術的工夫を見る</a>
           </div>
         </div>
         <div class="detail-row">
@@ -816,6 +885,29 @@
           </div>
           <div class="game-links">
             <a class="game-play-link" href="https://unityroom.com/games/gomisute_rule" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">Unityroomで開く</a>
+          </div>
+        </div>
+        <div class="detail-row">
+          <div class="detail-toggle">▼ 詳細画像を見る</div>
+          <div class="detail-content">
+            <div class="detail-grid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-item">
+        <div class="game-card has-ai">
+          <img src="images/game20_icon.png" alt="アルティメット伝言ゲーム">
+          <div class="game-info">
+            <div class="meta-line">
+              <span class="category">パーティー / オンライン</span>
+              <span class="ai-badge">AI: Codex</span>
+            </div>
+            <h3>アルティメット伝言ゲーム</h3>
+            <p>Steam公開とSteamのオンライン機能を練習するために制作したパーティーゲーム。公開後は<strong>200ダウンロード</strong>を達成した。</p>
+          </div>
+          <div class="game-links">
+            <span class="game-play-link game-play-link--grey" onclick="event.stopPropagation()">Steamで公開</span>
           </div>
         </div>
         <div class="detail-row">
@@ -1155,6 +1247,12 @@
         "images/game19_2.png",
         "images/game19_3.png",
         "images/game19_4.png"
+      ],
+      "images/game20_icon.png": [
+        "images/game20_1.png",
+        "images/game20_2.png",
+        "images/game20_3.png",
+        "images/game20_4.png"
       ]
     };
 
