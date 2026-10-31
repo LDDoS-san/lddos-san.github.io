@@ -352,6 +352,7 @@
       border-left-color:rgba(217, 119, 43, 0.28);
     }
 
+
     @media(max-width:500px){
       .game-card{
         grid-template-columns:1fr;
@@ -700,6 +701,7 @@
       margin-top:60px;
     }
   </style>
+  <link rel="stylesheet" href="ai-ratio.css">
 </head>
 <body>
   <header>
@@ -785,12 +787,12 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:10%">
           <img src="images/game19_icon.png" alt="プログラム・カタヨリスト">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">プログラミング / パズル</span>
-              <span class="ai-badge">AI: Codex / TRIPO</span>
+              <span class="ai-badge">AI使用度10%: Codex / TRIPO</span>
             </div>
             <h3>プログラム・カタヨリスト</h3>
             <p>役割が違うカタヨリスト達をプログラムして、生活を自動化するゲーム。制作中も、遊びながら<strong>ゲームの方向性やバランスなどを調整</strong>した。</p>
@@ -809,12 +811,12 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:20%">
           <img src="images/game14_icon.png" alt="スナイパー">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">アクション / シューティング</span>
-              <span class="ai-badge">AI: Cursor</span>
+              <span class="ai-badge">AI使用度20%: Cursor</span>
             </div>
             <h3>スナイパー</h3>
             <p>狙撃して敵から逃げるゲーム。<strong>ランダムなマップ</strong>にしながらゲームバランスが崩壊しないよう調整した。レンダリングを軽くするのに苦労した。</p>
@@ -874,12 +876,12 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:30%">
           <img src="images/game17_icon.png" alt="ゴミ捨てのルール">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">アクション / ステルス</span>
-              <span class="ai-badge">AI: Codex</span>
+              <span class="ai-badge">AI使用度30%: Codex</span>
             </div>
             <h3>ゴミ捨てのルール</h3>
             <p>ルールに対応しながらゴミを投げて捨てるアクションゲーム。<strong>オブジェクト指向の練習</strong>として、設計から行った。</p>
@@ -897,12 +899,12 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:70%">
           <img src="images/game20_icon.png" alt="アルティメット伝言ゲーム">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">パーティー / オンライン</span>
-              <span class="ai-badge">AI: Codex</span>
+              <span class="ai-badge">AI使用度70%: Codex</span>
             </div>
             <h3>アルティメット伝言ゲーム</h3>
             <p>Steam公開とSteamのオンライン機能を練習するために制作したパーティーゲーム。公開後は<strong>300ダウンロード</strong>を達成した。</p>
@@ -920,12 +922,12 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:20%">
           <img src="images/game15_icon.png" alt="FOGSITE">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">再現作品 / ストラテジー</span>
-              <span class="ai-badge">AI: Cursor</span>
+              <span class="ai-badge">AI使用度20%: Cursor</span>
             </div>
             <h3>FOGSITE</h3>
             <p>ボードゲームの再現作品。<strong>オンライン対戦を実装した。</strong>また、スマホでも遊べるようにモバイル対応も行った。</p>
@@ -1005,12 +1007,12 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:90%">
           <img src="images/game18_icon.png" alt="White Maze">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">パズル / 迷路</span>
-              <span class="ai-badge">AI: Codex</span>
+              <span class="ai-badge">AI使用度90%: Codex</span>
             </div>
             <h3>White Maze</h3>
             <p>真っ白な空間に色を塗りながら迷路を進む。友人のリクエストで作成。モバイル対応も行った。</p>
@@ -1125,12 +1127,12 @@
     <div class="game-grid">
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:80%">
           <img src="images/game16_icon.png" alt="タイピングボクシング">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">タイピング</span>
-              <span class="ai-badge">AI: Codex</span>
+              <span class="ai-badge">AI使用度80%: Codex</span>
             </div>
             <h3>タイピングボクシング</h3>
             <p>日本語・英語に加え、プログラムのコードを含めたタイピングゲーム。<strong>バックエンドの開発</strong>を行い、ログイン機能を作成した。</p>
@@ -1452,7 +1454,9 @@
     }
 
     setupDetailImages();
+
     </script>
 
+  <script src="ai-ratio.js"></script>
 </body>
 </html>

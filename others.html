@@ -489,6 +489,7 @@
       margin-top:60px;
     }
   </style>
+  <link rel="stylesheet" href="ai-ratio.css">
 </head>
 <body>
   <header>
@@ -558,12 +559,12 @@
     <div class="game-grid">
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:40%">
           <img src="images/other08_icon.png" alt="熱中症予測アプリ">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">予測 / ハッカソン</span>
-              <span class="ai-badge">AI: ChatGPT</span>
+              <span class="ai-badge">AI使用度40%: ChatGPT</span>
             </div>
             <h3>熱中症予測アプリ</h3>
             <p>気象や活動状況などから<strong>熱中症リスクを予測</strong>するアプリ。実用に向けた情報設計と表示に取り組んだ。</p>
@@ -577,12 +578,12 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:50%">
           <img src="images/other14_icon.png" alt="ゴーストランニング">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">ランニング / iPhone</span>
-              <span class="ai-badge">AI: Cursor</span>
+              <span class="ai-badge">AI使用度50%: Cursor</span>
             </div>
             <h3>ゴーストランニング</h3>
             <p>ゴーストと競争できるアプリ。<strong>iPhone用アプリとしてXcodeで作成。</strong></p>
@@ -652,12 +653,12 @@
       </div>
 
       <div class="game-item">
-        <div class="game-card has-ai">
+<div class="game-card ai-ratio" style="--ai-share:60%">
           <img src="images/other15_icon.png" alt="カモノハシの動く城">
           <div class="game-info">
             <div class="meta-line">
               <span class="category">Blender / モデリング / リギング</span>
-              <span class="ai-badge">AI: TRIPO</span>
+              <span class="ai-badge">AI使用度60%: TRIPO</span>
             </div>
             <h3>カモノハシの動く城</h3>
             <p>ゲーム用に<strong>AIを活用して制作した</strong>モデル。AIモデリング特有の難しさがあったが、素人が一から作るよりも明らかに高い完成度で仕上げることができた。</p>
@@ -975,5 +976,6 @@
 
     setupDetailImages();
   </script>
+  <script src="ai-ratio.js"></script>
 </body>
 </html>
